@@ -1,3 +1,8 @@
+# Build folder
+build/
+#externals/*.a
+bin/
+
 # Visual Studio
 .vs/
 Testing/
@@ -7,11 +12,6 @@ TestResults/
 .idea/
 cmake-build-debug/
 cmake-build-release/
-
-# Build folder
-build/
-#externals/*.a
-bin/
 
 # Xcode
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
