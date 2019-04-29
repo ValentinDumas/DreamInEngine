@@ -20,6 +20,9 @@
 #define B2_MATH_H
 
 #include "Box2D/Common/b2Settings.h"
+#ifndef _GLIBCXX_USE_C99_MATH
+	#define _GLIBCXX_USE_C99_MATH
+#endif
 #include <math.h>
 
 /// This function is used to ensure that a floating point number is not a NaN or infinity.
