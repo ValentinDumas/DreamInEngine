@@ -11,6 +11,27 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
+
+#include "components/BoxPhysics.h"
+#include "components/Input.h"
+
+#include "ResourceManager.h"
+
+int test_components()
+{
+    Input input;
+    input.m_left = ARROW_LEFT;
+
+    BoxPhysics boxPhysics;
+
+    ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
+
+    return 0;
+}
+
+
+
+
 int main(int argc, char** argv)
 {
     // Setup window
@@ -48,6 +69,23 @@ int main(int argc, char** argv)
         fprintf(stderr, "Failed to initialize OpenGL loader!\n");
         return 1;
     }
+
+
+
+
+
+
+
+
+
+    test_components();
+
+
+
+
+
+
+
 
     // Main loop
     while (!glfwWindowShouldClose(window))
