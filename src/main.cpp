@@ -7,6 +7,10 @@
 #include <cstdio>
 #include <components/Sprite.h>
 
+#ifndef _GLIBCXX_USE_C99_MATH
+#define _GLIBCXX_USE_C99_MATH
+#endif
+
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
