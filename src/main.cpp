@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h> // Include glfw3.h after our OpenGL definitions
 #include <cstdio>
+#include <components/Sprite.h>
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -25,6 +26,8 @@ int test_components()
     BoxPhysics boxPhysics;
 
     ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
+
+    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
 
     return 0;
 }
