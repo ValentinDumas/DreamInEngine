@@ -90,7 +90,7 @@ endif()
 # ------------------------------------------------------------------------------
 # Examples
 # ------------------------------------------------------------------------------
-set(BUILD_EXAMPLES ON)
+set(BUILD_EXAMPLES OFF)
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

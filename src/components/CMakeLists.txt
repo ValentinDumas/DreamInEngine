@@ -18,7 +18,9 @@ set(${PROJECT_NAME}_WARNINGS ON)
 # ------------------------------------------------------------------------------
 add_library(${PROJECT_NAME} STATIC "${${PROJECT_NAME}_SOURCE_FILES}" "${${PROJECT_NAME}_HEADER_FILES}")
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_include_directories(${PROJECT_NAME}
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(${PROJECT_NAME} PRIVATE glad utils Box2D glm coverage_config)
 
