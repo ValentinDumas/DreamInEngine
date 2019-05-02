@@ -29,10 +29,10 @@ set(${PROJECT_NAME}_WARNINGS OFF)
 # ------------------------------------------------------------------------------
 # Main Target Executable
 # ------------------------------------------------------------------------------
-add_executable(${PROJECT_NAME} "${${PROJECT_NAME}_SOURCE_FILES}")
+add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_NAME}_INCLUDE_DIRS") # Note: PRIVATE 'cause this is the main target
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_INCLUDE_DIRS) # Note: PRIVATE 'cause this is the main target
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_LIBRARIES}") # Note: pthread not needed !
+target_link_libraries(${PROJECT_NAME} PRIVATE ${${PROJECT_NAME}_LIBRARIES}) # Note: pthread not needed !
 
 MoveNeededResourcesToTarget(${PROJECT_NAME})
