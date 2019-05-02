@@ -5,7 +5,6 @@
 #include "FileSystem.h"
 
 #include <iostream>
-#include <string>
 
 #include <stdio.h>  /* defines FILENAME_MAX */
 
