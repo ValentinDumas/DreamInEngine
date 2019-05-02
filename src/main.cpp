@@ -16,27 +16,35 @@ static void glfw_error_callback(int error, const char* description)
 #include "components/BoxPhysics.h"
 #include "components/Input.h"
 
-#include "ResourceManager.h"
+//#include "ResourceManager.h"
+//
+//int test_components()
+//{
+//    Input input;
+//    input.m_left = ARROW_LEFT;
+//
+//    BoxPhysics boxPhysics;
+//
+//    ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
+//
+//    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
+//
+//    return 0;
+//}
 
-int test_components()
-{
-    Input input;
-    input.m_left = ARROW_LEFT;
 
-    BoxPhysics boxPhysics;
-
-    ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
-
-    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
-
-    return 0;
-}
-
-
-
+#include "utils/FileSystem.h"
+#include <iostream>
 
 int main(int argc, char** argv)
 {
+    std::vector<std::string> filepaths;
+    utils::filesystem::get_tree_paths("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets", filepaths);
+    for(const std::string &filepath: filepaths)
+    {
+        std::cout << "Filepath --> " << filepath.c_str() << std::endl;
+    }
+
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -81,7 +89,7 @@ int main(int argc, char** argv)
 
 
 
-    test_components();
+//    test_components();
 
 
 

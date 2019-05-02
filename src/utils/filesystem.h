@@ -1,62 +1,48 @@
-#pragma once
+//
+// Created by Spark on 29/04/2019.
+//
+
+#ifndef CI_TEMPLATE_FILESYSTEM_H
+#define CI_TEMPLATE_FILESYSTEM_H
 
 #include <string>
-#include <experimental/filesystem>
 
-inline std::string remove_extension(const std::string& filename) {
-	size_t lastdot = filename.find_last_of(".");
-	if (lastdot == std::string::npos) return filename;
-	return filename.substr(0, lastdot);
+#include <cppfs/fs.h>
+#include <cppfs/FilePath.h>
+#include <cppfs/FileHandle.h>
+#include <cppfs/Tree.h>
+
+#include <vector>
+
+#if __cplusplus
+    #define EXTERN extern "C"
+#else
+    #define EXTERN
+#endif
+
+namespace utils {
+    namespace filesystem {
+        std::string get_filename(const std::string& path);
+
+        bool set_working_path(const std::string& path);
+
+        void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree, std::vector<std::string>& tree_filepaths);
+
+        // # TODO return list of list of ... of vectors (std::vector<std::string>...), representing the tree and containing all the item paths !
+        void get_tree_paths(const std::string& path, std::vector<std::string>& paths_acquired, bool include_hash = false);
+
+        std::string get_current_path();
+
+        std::vector<std::string> get_directory_entries(const std::string & path);
+
+        void print_directory_entries(const std::string &path);
+
+        cppfs::FileHandle get_entry(const std::string &path);
+
+        EXTERN int external_number;
+
+        //EXTERN std::string current_working_path;
+    }
 }
 
-// TODO: Move in filesystem.h
-inline bool FolderExists(const std::string& name, const std::string& path = "projects")
-{
-	for (auto& item : std::experimental::filesystem::directory_iterator(path))
-	{
-		if (name == item.path().filename().string())
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-inline std::vector<std::experimental::filesystem::path> GetFilePathsFromDirectory(const std::string &path)
-{
-	std::vector<std::experimental::filesystem::path> paths;
-
-	for (auto& item : std::experimental::filesystem::directory_iterator(std::experimental::filesystem::current_path().string() + "\\" + path))
-	{
-		if (item.path().has_filename() && item.path().has_extension())
-		{
-			paths.push_back(item.path());
-		}
-	}
-
-	return paths;
-}
-
-inline std::vector<std::experimental::filesystem::path> GetRecursiveFilePathsFromDirectory(const std::string &path)
-{
-	std::vector<std::experimental::filesystem::path> paths;
-
-	for (auto& item : std::experimental::filesystem::recursive_directory_iterator(std::experimental::filesystem::current_path().string() + "\\" + path))
-	{
-		if (std::experimental::filesystem::is_directory(item)) {}
-		else
-		{
-			paths.push_back(item.path());
-		}
-	}
-
-	return paths;
-}
-
-
-
-//std::experimental::filesystem::directory_iterator* directory_entries(const std::string& path)
-//{
-//	return &std::experimental::filesystem::directory_iterator(path);
-//}
+#endif //CI_TEMPLATE_FILESYSTEM_H

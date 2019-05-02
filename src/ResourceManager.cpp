@@ -14,7 +14,7 @@
 
 #include <list>
 
-#include "utils/filesystem.h"
+#include "utils/FileSystem.h"
 
 // Instantiate static variables
 std::map<std::string, Texture>    ResourceManager::Textures;
@@ -38,7 +38,11 @@ int ResourceManager::LoadTextures(const std::string& path)
 	std::string texture_extension;
 	unsigned int texture_count = 0;
 
-	for (auto & filepath : GetRecursiveFilePathsFromDirectory(path))
+	std::vector<std::string> filepaths;
+
+    utils::filesystem::get_tree_paths(path, filepaths);
+
+	for (const std::string &filepath  : filepaths)
 	{
 		bool is_extension_valid = false;
 
@@ -58,7 +62,7 @@ int ResourceManager::LoadTextures(const std::string& path)
 
 		if (!is_extension_valid) continue;
 
-		ResourceManager::LoadTexture((filepath).string().c_str(), GL_TRUE, remove_extension(texture_filename));
+		ResourceManager::LoadTexture((filepath).string().c_str(), GL_TRUE, utils::filesystem::get_filename(filepath));
 		texture_count++;
 	}
 

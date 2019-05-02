@@ -1,5 +1,8 @@
-#ifndef CI_OPENGL_TEMPLATE_COMPLEX_HPP
-#define CI_OPENGL_TEMPLATE_COMPLEX_HPP
+#ifndef CI_TEMPLATE_COMPLEX_HPP
+#define CI_TEMPLATE_COMPLEX_HPP
+
+#include <iostream>
+#include <cmath>
 
 /**
  * @file complex.hpp
