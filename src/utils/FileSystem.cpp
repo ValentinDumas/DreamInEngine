@@ -18,10 +18,7 @@
 #define GetCurrentDir getcwd
 #endif
 
-extern "C"
-{
-    int external_number = 0;
-};
+// TODO: Keep track of current/ old(s) selected paths in private (static) values ?
 
 static std::string current_working_path = "";
 //static cppfs::FileHandle current_working_dir; // private scope
@@ -60,7 +57,6 @@ void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> & file_t
                 std::string tree_child_complete_path;
                 tree_child_complete_path += tree_child_path += "\\" + child;
                 std::cout << tree_child_complete_path << std::endl;
-                std::cout << cppfs::fs::open(tree_child_complete_path).readFile() << std::endl;
             }
 
             // Look for deeper levels from this tree node
@@ -138,14 +134,7 @@ void utils::filesystem::print_directory_entries(const std::string &path) {
     for (auto entry : entries) {
         std::cout << "-> " << entry << std::endl;
     }
-
-    external_number += 10;
 }
 
-void utils::filesystem::list_recursive_directory_entries(const std::string &path) {
-    // ...
-    external_number += 10;
-}
-
-// list all files
-
+// TODO: readfile;
+// std::cout << cppfs::fs::open(tree_child_complete_path).readFile() << std::endl;

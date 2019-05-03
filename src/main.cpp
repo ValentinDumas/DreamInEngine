@@ -6,7 +6,6 @@
 
 #include "utils/types.h"
 
-
 #include "utils/FileSystem.hpp"
 
 /// Main program function

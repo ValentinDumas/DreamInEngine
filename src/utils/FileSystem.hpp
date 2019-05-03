@@ -30,11 +30,7 @@ namespace utils {
 
         void print_directory_entries(const std::string &path);
 
-        void list_recursive_directory_entries(const std::string &path);
-
         cppfs::FileHandle get_entry(const std::string &path);
-
-        //EXTERN std::string current_working_path;
     }
 }
 
