@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
     utils::filesystem::print_directory_entries(path);
 
-    auto a = utils::filesystem::get_entry(path + "\\ci_template.exe");
+    auto a = utils::filesystem::get_entry(path + "\\DreamInEngine.exe");
 
     std::cout << "External number's value: " << utils::filesystem::external_number << std::endl;
     utils::filesystem::print_directory_entries("");

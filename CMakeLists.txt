@@ -14,7 +14,7 @@ add_subdirectory(tools)
 project(DreamInEngine C CXX)
 
 # ------------------------------------------------------------------------------
-# CMake build configuration: Debug or Release
+# CMake build configuration: Debug or Releas
 # ------------------------------------------------------------------------------
 # set(CMAKE_BUILD_TYPE Debug)
 # message(CMAKE Build Type => ${CMAKE_BUILD_TYPE})
