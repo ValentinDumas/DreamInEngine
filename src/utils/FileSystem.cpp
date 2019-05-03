@@ -2,9 +2,10 @@
 // Created by Spark on 01/05/2019.
 //
 
-#include "utils/FileSystem.h"
+#include "FileSystem.h"
 
 #include <iostream>
+#include <string>
 
 #include <stdio.h>  /* defines FILENAME_MAX */
 
@@ -45,7 +46,7 @@ bool utils::filesystem::set_working_path(const std::string &path) {
     return true;
 }
 
-void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> & file_tree, std::vector<std::string>& tree_filepaths) {
+void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> & file_tree) {
     // TODO: while tree children size > 0 ? continue getting into children ?
     std::vector<std::unique_ptr<cppfs::Tree> > &tree_children = file_tree->children();
 
@@ -60,21 +61,20 @@ void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> & file_t
                 std::string tree_child_complete_path;
                 tree_child_complete_path += tree_child_path += "\\" + child;
                 std::cout << tree_child_complete_path << std::endl;
-                //std::cout << cppfs::fs::open(tree_child_complete_path).readFile() << std::endl;
-
-                // Add the file_path to the list
-                tree_filepaths.push_back(tree_child_complete_path);
+                std::cout << cppfs::fs::open(tree_child_complete_path).readFile() << std::endl;
             }
 
             // Look for deeper levels from this tree node
-            utils::filesystem::get_tree_filepaths(tree_child, tree_filepaths);
+            utils::filesystem::get_tree_filepaths(tree_child);
         }
 //    }
 }
 
-void utils::filesystem::get_tree_paths(const std::string &path, std::vector<std::string>& paths_acquired, bool include_hash) {
+void utils::filesystem::get_tree(const std::string &path, bool include_hash) {
     cppfs::FileHandle file_handle = cppfs::fs::open(path);
     std::unique_ptr<cppfs::Tree> file_tree;
+
+    std::vector<std::string> root_entries;
 
     if (file_handle.exists()) {
         // Read the whole tree from the given path
@@ -83,7 +83,16 @@ void utils::filesystem::get_tree_paths(const std::string &path, std::vector<std:
         // Get the root path
         std::cout << "TREE root path: " << file_tree->path() << std::endl;
 
-        utils::filesystem::get_tree_filepaths(file_tree, paths_acquired);
+        utils::filesystem::get_tree_filepaths(file_tree);
+
+//        for(auto &tree_child : tree_children)
+//        {
+//            std::cout << "TREE children path: " << tree_child.get()->path() << std::endl;
+//            for(auto & tree_child_entry : tree_child.get()->listFiles())
+//            {
+//                std::cout << " ----------> " << tree_child_entry.c_str() << std::endl;
+//            }
+//        }
     }
 }
 
@@ -131,6 +140,11 @@ void utils::filesystem::print_directory_entries(const std::string &path) {
         std::cout << "-> " << entry << std::endl;
     }
 
+    external_number += 10;
+}
+
+void utils::filesystem::list_recursive_directory_entries(const std::string &path) {
+    // ...
     external_number += 10;
 }
 

@@ -2,8 +2,8 @@
 // Created by Spark on 29/04/2019.
 //
 
-#ifndef DREAMINENGINE_FILESYSTEM_H
-#define DREAMINENGINE_FILESYSTEM_H
+#ifndef CI_TEMPLATE_FILESYSTEM_H
+#define CI_TEMPLATE_FILESYSTEM_H
 
 #include <string>
 
@@ -26,16 +26,18 @@ namespace utils {
 
         bool set_working_path(const std::string& path);
 
-        void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree, std::vector<std::string>& tree_filepaths);
+        void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree);
 
         // # TODO return list of list of ... of vectors (std::vector<std::string>...), representing the tree and containing all the item paths !
-        void get_tree_paths(const std::string& path, std::vector<std::string>& paths_acquired, bool include_hash = false);
+        void get_tree(const std::string& path, bool include_hash = false);
 
         std::string get_current_path();
 
         std::vector<std::string> get_directory_entries(const std::string & path);
 
         void print_directory_entries(const std::string &path);
+
+        void list_recursive_directory_entries(const std::string &path);
 
         cppfs::FileHandle get_entry(const std::string &path);
 
@@ -45,4 +47,4 @@ namespace utils {
     }
 }
 
-#endif //DREAMINENGINE_FILESYSTEM_H
+#endif //CI_TEMPLATE_FILESYSTEM_H
