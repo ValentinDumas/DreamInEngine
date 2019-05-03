@@ -11,7 +11,7 @@ add_subdirectory(tools)
 # ------------------------------------------------------------------------------
 # Project information
 # ------------------------------------------------------------------------------
-project(DreamInEngine C CXX)
+project(ci_opengl_template C CXX)
 
 # ------------------------------------------------------------------------------
 # CMake build configuration: Debug or Release
@@ -50,7 +50,7 @@ else()
     message("Tests are configured in STANDALONE mode")
     set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static") # include gcc libs
     if(BUILD_EXECUTABLE_IN_PROJECT_TREE)
-        # TODO: only apply to concerned target, as main target (DreamInEngine) for instance
+        # TODO: only apply to concerned target, as main target (ci_opengl_template) for instance
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}\\bin") # sure ?
         set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}\\bin") # TODO: change to lib
         set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}\\bin\\static") # TODO: change to lib/static

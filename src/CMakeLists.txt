@@ -3,7 +3,7 @@
 # Created by Spark on 28/04/2019.
 # ------------------------------------------------------------------------------
 
-project(DreamInEngine)
+project(ci_opengl_template)
 
 create_property(P_PROJECT_SOURCE_MODULES "")
 
