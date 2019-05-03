@@ -1,79 +1,49 @@
-//
-// Created by Spark on 27/04/2019.
-//
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h> // Include glfw3.h after our OpenGL definitions
-#include <cstdio>
-
 #include <iostream>
-#include "utils/FileSystem.h"
-#include "utils/types.h"
+
+#include "mathematics/complex.hpp"
 
 #include "lua/LuaScript.h"
 
-static void glfw_error_callback(int error, const char* description)
+#include "utils/types.h"
+
+#include "utils/FileSystem.h"
+
+/// Main program function
+int main(int argc, char **argv)
 {
-    fprintf(stderr, "Glfw Error %d: %s\n", error, description);
-}
+    auto path = utils::filesystem::get_current_path();
+    std::cout << "Current main path: " << path << std::endl;
 
-int main(int argc, char** argv)
-{
-    // Setup window
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return 1;
+    utils::filesystem::print_directory_entries(path);
 
-    // Decide GL+GLSL versions
-#if __APPLE__
-    // GL 3.2 + GLSL 150
-    //const char* glsl_version = "#version 150"; Needed by ImGui
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-#else
-    // GL 3.0 + GLSL 130
-    //const char* glsl_version = "#version 130"; // Needed by ImGui
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
+    auto a = utils::filesystem::get_entry(path + "\\ci_template.exe");
 
-    // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
-    if (window == NULL)
-        return 1;
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
+    std::cout << "External number's value: " << utils::filesystem::external_number << std::endl;
+    utils::filesystem::print_directory_entries("");
+    std::cout << "External number's value: "  << utils::filesystem::external_number << std::endl;
 
-    bool err = gladLoadGL() == 0;
-    if (err)
-    {
-        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-        return 1;
-    }
+    auto t_index = getTypeIndex<int>();
 
-    // Main loop
-    while (!glfwWindowShouldClose(window))
-    {
-        // Poll and handle events (inputs, window resize, etc.)
-        glfwPollEvents();
+    Complex complex(4,5);
 
-        int display_w, display_h;
-        glfwMakeContextCurrent(window);
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(0, 0, 0, 1);
-        glClear(GL_COLOR_BUFFER_BIT);
+    std::cout << "complex.getImag() = " << complex.getImag() << std::endl;
+    std::cout << "complex.getReal() = " << complex.getReal() << std::endl;
+    std::cout << "complex.abs() = " << complex.abs() << std::endl;
 
-        glfwMakeContextCurrent(window);
-        glfwSwapBuffers(window);
-    }
+    LuaScript script("assets\\scripts\\Player.lua");
+    float posX = script.get<float>("player.position.x");
+    float posY = script.get<float>("player.position.y");
+    std::string filename = script.get<std::string>("player.filename");
+    int hp = script.get<int>("player.HP");
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    std::cout<<"Position X = "<<posX<<", Y = "<<posY<<std::endl;
+    std::cout<<"Filename:"<<filename<<std::endl;
+    std::cout<<"HP:"<<hp<<std::endl;
+
+    utils::filesystem::get_tree(path);
+
+    std::cout << "Setup status: SUCCESS !" << std::endl;
+    // std::cin.get();
 
     return 0;
 }

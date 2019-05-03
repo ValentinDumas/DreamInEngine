@@ -90,17 +90,6 @@ matrix:
           - libbsd-dev
           - libzzip-dev
           - lcov
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
 
     script:
@@ -121,17 +110,6 @@ matrix:
         packages:
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     env:
       - TEST="Google Address Sanitizer"
@@ -154,17 +132,6 @@ matrix:
         packages:
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -185,17 +152,6 @@ matrix:
         packages:
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -217,17 +173,6 @@ matrix:
           - gcc-6
           - g++-6
           - valgrind
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -248,17 +193,6 @@ matrix:
         packages:
           - gcc-5
           - g++-5
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -279,17 +213,6 @@ matrix:
         packages:
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -312,17 +235,6 @@ matrix:
           - clang-3.8
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -345,17 +257,6 @@ matrix:
           - clang-3.9
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
@@ -378,17 +279,6 @@ matrix:
           - clang-4.0
           - gcc-6
           - g++-6
-          # SFML dependencies
-          - libudev-dev       # udev
-          - libfreetype6-dev  # freetype
-          - libxrandr-dev     # xrandr
-          #- libgl-dev        # gl
-          - libflac-dev       # flac
-          - libogg-dev        # ogg
-          - libvorbis-dev     # vorbis
-          - libvorbisenc2     # vorbisenc
-          - libvorbisfile3    # vorbisfile
-          - libopenal-dev     # openal
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
