@@ -6,7 +6,8 @@
 
 #include "utils/types.h"
 
-#include "utils/FileSystem.h"
+
+#include "utils/FileSystem.hpp"
 
 /// Main program function
 int main(int argc, char **argv)
@@ -18,9 +19,7 @@ int main(int argc, char **argv)
 
     auto a = utils::filesystem::get_entry(path + "\\DreamInEngine.exe");
 
-    std::cout << "External number's value: " << utils::filesystem::external_number << std::endl;
-    utils::filesystem::print_directory_entries("");
-    std::cout << "External number's value: "  << utils::filesystem::external_number << std::endl;
+//    utils::filesystem::print_directory_entries("");
 
     auto t_index = getTypeIndex<int>();
 

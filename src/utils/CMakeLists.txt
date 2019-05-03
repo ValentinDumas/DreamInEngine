@@ -16,7 +16,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ./.. PRIVATE ${CMAKE_CURRENT_S
 
 target_link_libraries(${PROJECT_NAME} PUBLIC cppfs coverage_config) # Include code-coverage & warnings settings
 
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX) # Note: The line below is mandatory to find compiler language (between C / C++)
+#set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX) # Note: The line below is mandatory to find compiler language (between C / C++)
 
 add_data_to_property(P_PROJECT_SOURCE_MODULES ${PROJECT_NAME})
 

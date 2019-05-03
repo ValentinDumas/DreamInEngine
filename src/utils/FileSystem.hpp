@@ -5,20 +5,13 @@
 #ifndef DREAMINENGINE_FILESYSTEM_H
 #define DREAMINENGINE_FILESYSTEM_H
 
-#include <string>
-
 #include <cppfs/fs.h>
 #include <cppfs/FilePath.h>
 #include <cppfs/FileHandle.h>
 #include <cppfs/Tree.h>
 
 #include <vector>
-
-#if __cplusplus
-    #define EXTERN extern "C"
-#else
-    #define EXTERN
-#endif
+#include <string>
 
 namespace utils {
     namespace filesystem {
@@ -40,8 +33,6 @@ namespace utils {
         void list_recursive_directory_entries(const std::string &path);
 
         cppfs::FileHandle get_entry(const std::string &path);
-
-        EXTERN int external_number;
 
         //EXTERN std::string current_working_path;
     }
