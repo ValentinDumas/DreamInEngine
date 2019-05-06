@@ -14,7 +14,7 @@ add_subdirectory(events)
 # ------------------------------------------------------------------------------
 # Main Target Executable
 # ------------------------------------------------------------------------------
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp GLFWEnvironment.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
