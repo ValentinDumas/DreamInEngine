@@ -2,9 +2,8 @@
 // Created by ValentinDU on 20/02/2018.
 //
 
-#include "GLFWEnvironment.h"
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "GLFWEnvironment.h"
 
 int window_position_x = 0; // from TOP LEFT of user's screen
 int window_position_y = 0; // from TOP LEFT of user's screen
@@ -93,9 +92,8 @@ std::vector<InputEnum> GLFWEnvironment::process_input() const {
 
 int GLFWEnvironment::init() {
 	glfwSetErrorCallback(error_callback);
-	
-	if (!glfwInit())
-	{
+
+	if (!glfwInit()) {
 		std::cout << "Error: Could not initialize GLFW !" << std::endl;
 		return 1;
 	}
@@ -103,28 +101,37 @@ int GLFWEnvironment::init() {
 	if (!m_width && !m_height) // Size undefined earlier
 	{
 		// Determine window size, based on screen resolution
-		const GLFWvidmode* resolution = this->get_resolution();
+		const GLFWvidmode *resolution = this->get_resolution();
 		m_width = resolution->width;
 		m_height = resolution->height;
-		m_viewport_rect = { 0, 0, m_width, m_height };
+		m_viewport_rect = {0, 0, m_width, m_height};
 	}
 
 #if __APPLE__
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on Mac
+    // GL 3.2 + GLSL 150
+    const char* glsl_version = "#version 150"; Needed by ImGui
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on Mac
 #else
+	// GL 3.0 + GLSL 130
+	//const char* glsl_version = "#version 130"; // Needed by ImGui
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif	
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
+#endif
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 	glfwWindowHint(GLFW_DECORATED, GL_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GL_TRUE);
 
 	// NOTE: to display properly the window (with tilebar), 
-	m_window = glfwCreateWindow(m_width, m_height, m_title.c_str(), (m_fullscreen ? glfwGetPrimaryMonitor() : nullptr), nullptr);
+	m_window = glfwCreateWindow(m_width, m_height, m_title.c_str(), (m_fullscreen ? glfwGetPrimaryMonitor() : nullptr),
+								nullptr);
 	if (m_window == 0) {
 		// Window or context creation failed
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -192,8 +199,8 @@ int GLFWEnvironment::get_height() {
 }
 
 void GLFWEnvironment::close() {
-	// Glfw: terminate, clearing all previously allocated GLFW resources.
-	glfwTerminate();
+	glfwDestroyWindow(this->m_window); // Free allocated memory for window
+	glfwTerminate(); // GlfW: terminate, clearing all previously allocated GLFW resources.
 }
 
 void GLFWEnvironment::clear_screen(float r, float g, float b, float a) {

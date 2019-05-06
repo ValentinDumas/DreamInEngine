@@ -89,12 +89,12 @@ public:
 	bool is_window_iconified();
 
 private:
-	GLFWwindow * m_window;
-	std::string m_title;
-	unsigned m_width;
-	unsigned m_height;
-	bool m_fullscreen = true;
-	ViewportRect m_viewport_rect;
+    GLFWwindow * m_window;
+    std::string m_title;
+    unsigned m_width;
+    unsigned m_height;
+    bool m_fullscreen = true;
+    ViewportRect m_viewport_rect;
 };
 
 #endif //DREAMINENGINE_GLFWENVIRONMENT_H
