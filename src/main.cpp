@@ -32,22 +32,18 @@ public:
 #include "components/ContactListener.h"
 #include "components/Shader.h"
 
-void test_components()
-{
-    Texture texture = Texture();
-    Sprite sprite = Sprite(texture, glm::vec2(10.0f, 10.0f));
-    Input input = Input();
-    BoxPhysics boxPhysics = BoxPhysics();
-    ContactListener contactListener = ContactListener();
-    Shader shader = Shader();
-
-//    ResourceManager::LoadTexture("assets\\textures\\container.jpg", true, "container");
-//    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
-}
+#include "SpriteRenderer.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
+}
+
+void test_components()
+{
+    Input input = Input();
+    BoxPhysics boxPhysics = BoxPhysics();
+    ContactListener contactListener = ContactListener();
 }
 
 // TODO: always check if glad is initialized when making a "glad related call"
@@ -86,6 +82,12 @@ int main(int argc, char **argv)
 
     test_components(); // Note: processed only if glad is initialized
 
+    ResourceManager::LoadShader("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.vert", "C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.frag", nullptr, "sprite2D");
+    ResourceManager::LoadTexture(std::string("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\awesomeface.png").c_str(), true, "awesomeface");
+    Sprite sprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(0.0f, 0.0f));
+
+    SpriteRenderer *spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite2D"));
+
     // Main loop
     while (!glfw->quit())
     {
@@ -100,6 +102,16 @@ int main(int argc, char **argv)
         glViewport(0, 0, display_w, display_h);
         glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(glfw->get_width()), static_cast<GLfloat>(glfw->get_height()), 0.0f, -1.0f, 1.0f);
+        // Configure shaders
+        ResourceManager::GetShader("sprite2D").Use().SetInteger("image", 0);
+        ResourceManager::GetShader("sprite2D").SetMatrix4("projection", projection);
+        spriteRenderer->DrawSprite(sprite.m_texture, sprite.Position);
+
+        sprite.Position.x += 1;
+        sprite.Position.y += 1;
+
 
         glfwMakeContextCurrent(glfw->get_window());
         glfwSwapBuffers(glfw->get_window());

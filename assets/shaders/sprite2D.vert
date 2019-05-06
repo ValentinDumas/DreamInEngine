@@ -24,6 +24,6 @@ void main()
 	{
 		TexCoords.y *= -1.0;
 	}
-	
+
 	gl_Position = projection * model * vec4(vertex.x, vertex.y, 0.0f, 1.0f);
 }

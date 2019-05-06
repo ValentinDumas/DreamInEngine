@@ -2,6 +2,9 @@
 // Created by Spark on 01/05/2019.
 //
 
+#include <cppfs/fs.h>
+#include <cppfs/FilePath.h>
+
 #include "FileSystem.hpp"
 
 #include <iostream>

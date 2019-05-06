@@ -6,14 +6,18 @@
 ** Creative Commons, either version 4 of the License, or (at your
 ** option) any later version.
 ******************************************************************/
-#include <ResourceManager.h>
+#include "ResourceManager.h"
 
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <list>
 
-#include <soil.h>
-#include "utils/filesystem.h"
+#include "glad/glad.h"
+
+#include "stb/stb_image.h"
+
+#include "utils/FileSystem.hpp"
 
 // Instantiate static variables
 std::map<std::string, Texture>    ResourceManager::Textures;
@@ -37,29 +41,29 @@ int ResourceManager::LoadTextures(const std::string& path)
 	std::string texture_extension;
 	unsigned int texture_count = 0;
 
-	for (auto & filepath : GetRecursiveFilePathsFromDirectory(path))
-	{
-		bool is_extension_valid = false;
-
-		if (!filepath.has_extension()) continue;
-
-		texture_filename = filepath.filename().string();
-		texture_extension = filepath.extension().string();
-
-		// TODO: make a supported extensions list
-		for (auto &supported_extension : supported_texture_extensions)
-		{
-			if (texture_extension == supported_extension) // extension found
-			{
-				is_extension_valid = true; // valid extension
-			}
-		}
-
-		if (!is_extension_valid) continue;
-
-		ResourceManager::LoadTexture((filepath).string().c_str(), GL_TRUE, remove_extension(texture_filename));
-		texture_count++;
-	}
+//	for (auto & filepath : GetRecursiveFilePathsFromDirectory(path))
+//	{
+//		bool is_extension_valid = false;
+//
+//		if (!filepath.has_extension()) continue;
+//
+//		texture_filename = filepath.filename().string();
+//		texture_extension = filepath.extension().string();
+//
+//		// TODO: make a supported extensions list
+//		for (auto &supported_extension : supported_texture_extensions)
+//		{
+//			if (texture_extension == supported_extension) // extension found
+//			{
+//				is_extension_valid = true; // valid extension
+//			}
+//		}
+//
+//		if (!is_extension_valid) continue;
+//
+//		ResourceManager::LoadTexture((filepath).string().c_str(), GL_TRUE, remove_extension(texture_filename));
+//		texture_count++;
+//	}
 
 	return texture_count++;
 }
@@ -72,39 +76,39 @@ int ResourceManager::LoadShaders(const std::string& path)
 	unsigned int file_counter = 0;
 	unsigned int shaders_count = 0;
 
-	for (auto & filepath : GetFilePathsFromDirectory(path))
-	{
-		if (filepath.extension().string() == ".vert")
-		{
-			vertex_filename = filepath.filename().string();
-		}
-		else if (filepath.extension().string() == ".frag")
-		{
-			fragment_filename = filepath.filename().string();
-		}
-
-		file_counter++;
-
-		if (vertex_filename.empty() || fragment_filename.empty() || file_counter != 2) {}
-		else
-		{
-			ResourceManager::LoadShader((path + "\\" + vertex_filename).c_str(), (path + "\\" + fragment_filename).c_str(), nullptr, remove_extension(filepath.filename().string()));
-			shaders_count++;
-		}
-
-		if (file_counter == 2)
-		{
-			vertex_filename = "";
-			fragment_filename = "";
-			file_counter = 0;
-		}
-
-		/*std::cout << i.string() << std::endl;
-		std::cout << i.filename() << std::endl;
-		std::cout << remove_extension(i.filename().string()) << std::endl;
-		std::cout << i.extension() << std::endl;
-		std::cout << "------------" << std::endl;*/
-	}
+//	for (auto & filepath : utils::filesystem::get_directory_entries(path))
+//	{
+//		if (filepath.extension().string() == ".vert")
+//		{
+//			vertex_filename = filepath.filename().string();
+//		}
+//		else if (filepath.extension().string() == ".frag")
+//		{
+//			fragment_filename = filepath.filename().string();
+//		}
+//
+//		file_counter++;
+//
+//		if (vertex_filename.empty() || fragment_filename.empty() || file_counter != 2) {}
+//		else
+//		{
+//			ResourceManager::LoadShader((path + "\\" + vertex_filename).c_str(), (path + "\\" + fragment_filename).c_str(), nullptr, remove_extension(filepath.filename().string()));
+//			shaders_count++;
+//		}
+//
+//		if (file_counter == 2)
+//		{
+//			vertex_filename = "";
+//			fragment_filename = "";
+//			file_counter = 0;
+//		}
+//
+//		/*std::cout << i.string() << std::endl;
+//		std::cout << i.filename() << std::endl;
+//		std::cout << remove_extension(i.filename().string()) << std::endl;
+//		std::cout << i.extension() << std::endl;
+//		std::cout << "------------" << std::endl;*/
+//	}
 
 	return shaders_count;
 }
@@ -122,6 +126,9 @@ Shader ResourceManager::GetShader(std::string name)
 
 Texture ResourceManager::LoadTexture(const GLchar *file, GLboolean alpha, std::string name)
 {
+//	std::string current_path = utils::filesystem::get_current_path() + "\\";
+//	current_path += file;
+
 	Textures[name] = loadTextureFromFile(file, alpha);
 	return Textures[name];
 }
@@ -196,10 +203,10 @@ Texture ResourceManager::loadTextureFromFile(const GLchar *file, GLboolean alpha
 	}
 	// Load image
 	int width, height, num_channels; // TODO: Include this in Texture structure
-	unsigned char* image = SOIL_load_image(file, &width, &height, &num_channels, texture.Image_Format == GL_RGBA ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+	unsigned char* image = stbi_load(file, &width, &height, &num_channels, texture.Image_Format == GL_RGBA ? STBI_rgb_alpha : STBI_rgb);
 	// Now generate texture
 	texture.Generate(width, height, image);
 	// And finally free image data
-	SOIL_free_image_data(image);
+	stbi_image_free(image);
 	return texture;
 }

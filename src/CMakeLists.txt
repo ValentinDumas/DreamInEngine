@@ -15,7 +15,7 @@ add_subdirectory(components)
 # ------------------------------------------------------------------------------
 # Main Target Executable
 # ------------------------------------------------------------------------------
-add_executable(${PROJECT_NAME} main.cpp GLFWEnvironment.cpp)
+add_executable(${PROJECT_NAME} main.cpp GLFWEnvironment.cpp ResourceManager.cpp SpriteRenderer.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 

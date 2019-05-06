@@ -5,13 +5,10 @@
 #ifndef DREAMINENGINE_FILESYSTEM_H
 #define DREAMINENGINE_FILESYSTEM_H
 
-#include <cppfs/fs.h>
-#include <cppfs/FilePath.h>
-#include <cppfs/FileHandle.h>
-#include <cppfs/Tree.h>
-
 #include <vector>
 #include <string>
+#include <cppfs/Tree.h>
+#include <cppfs/FileHandle.h>
 
 namespace utils {
     namespace filesystem {

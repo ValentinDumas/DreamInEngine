@@ -1,5 +1,5 @@
-#include <components/Texture.h>
-#include <SpriteRenderer.h>
+#include "components/Texture.h"
+#include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(Shader shader)
 {
