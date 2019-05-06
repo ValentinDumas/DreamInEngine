@@ -3,7 +3,7 @@
 
 #include "LuaScript.h"
 
-int main(int argc, char **argv) {
+int main() {
     LuaScript script("assets\\scripts\\Player.lua");
     float posX = script.get<float>("player.position.x");
     float posY = script.get<float>("player.position.y");

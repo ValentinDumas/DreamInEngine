@@ -32,8 +32,7 @@ std::string get_filename(const std::string &path) {
 bool utils::filesystem::set_working_path(const std::string &path) {
     cppfs::FileHandle file_handle = cppfs::fs::open(path);
 
-    if (!file_handle.exists())
-    {
+    if (!file_handle.exists()) {
         std::cout << "[Error] Path " << path << " does not exists on the current filesystem" << std::endl;
         return false;
     }
@@ -42,30 +41,36 @@ bool utils::filesystem::set_working_path(const std::string &path) {
     return true;
 }
 
-void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> & file_tree) {
+void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> &file_tree, std::vector<std::string>& paths) {
     // TODO: while tree children size > 0 ? continue getting into children ?
     std::vector<std::unique_ptr<cppfs::Tree> > &tree_children = file_tree->children();
 
 //    if(!tree_children.empty())
 //    {
-        for(auto & tree_child : tree_children)
-        {
-            std::string tree_child_path = tree_child->path();
-            // Process this tree level
-            for(auto & child : tree_child->listFiles())
-            {
-                std::string tree_child_complete_path;
-                tree_child_complete_path += tree_child_path += "\\" + child;
-                std::cout << tree_child_complete_path << std::endl;
-            }
+    for (auto &tree_child : tree_children) {
+        std::string tree_child_path = tree_child->path();
 
-            // Look for deeper levels from this tree node
-            utils::filesystem::get_tree_filepaths(tree_child);
+        // If the child tree matches a directory, go further...
+        // Else, (the child tree matches a file
+
+        // TODO: Improve this function:
+        // TODO: While tree_child->listFiles has directories... get path
+        // TODO: Otherwise, display all files...
+
+        // Process this tree level
+        for (auto &child : tree_child->listFiles()) {
+            std::string tree_child_complete_path = (tree_child_path + "\\" + child);
+            std::cout << tree_child_complete_path << std::endl;
+            paths.push_back(tree_child_complete_path);
         }
+
+        // Look for deeper levels from this tree node
+        utils::filesystem::get_tree_filepaths(tree_child, paths);
+    }
 //    }
 }
 
-void utils::filesystem::get_tree(const std::string &path, bool include_hash) {
+void utils::filesystem::get_tree(const std::string &path, std::vector<std::string>& paths, bool include_hash) {
     cppfs::FileHandle file_handle = cppfs::fs::open(path);
     std::unique_ptr<cppfs::Tree> file_tree;
 
@@ -78,7 +83,7 @@ void utils::filesystem::get_tree(const std::string &path, bool include_hash) {
         // Get the root path
         std::cout << "TREE root path: " << file_tree->path() << std::endl;
 
-        utils::filesystem::get_tree_filepaths(file_tree);
+        utils::filesystem::get_tree_filepaths(file_tree, paths);
 
 //        for(auto &tree_child : tree_children)
 //        {

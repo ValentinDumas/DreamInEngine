@@ -19,6 +19,16 @@ public:
     Scene() {}
 };
 
+#include "components/Sprite.h"
+
+void test_components()
+{
+
+
+//    ResourceManager::LoadTexture("assets\\textures\\container.jpg", true, "container");
+//    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
+}
+
 /// Main program function
 int main(int argc, char **argv)
 {
@@ -36,7 +46,8 @@ int main(int argc, char **argv)
 
     auto t_index = getTypeIndex<int>();
 
-    utils::filesystem::get_tree(path);
+    std::vector<std::string> assets_paths;
+    utils::filesystem::get_tree(path, assets_paths);
 
     std::cout << "Setup status: SUCCESS !" << std::endl;
     // std::cin.get();

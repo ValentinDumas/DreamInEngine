@@ -19,10 +19,10 @@ namespace utils {
 
         bool set_working_path(const std::string& path);
 
-        void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree);
+        void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree, std::vector<std::string>& paths);
 
         // # TODO return list of list of ... of vectors (std::vector<std::string>...), representing the tree and containing all the item paths !
-        void get_tree(const std::string& path, bool include_hash = false);
+        void get_tree(const std::string& path, std::vector<std::string>& paths, bool include_hash = false);
 
         std::string get_current_path();
 
