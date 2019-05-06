@@ -25,9 +25,21 @@ public:
 #include <GLFW/glfw3.h>
 #include "GLFWEnvironment.h"
 
+#include "components/Texture.h"
+#include "components/Sprite.h"
+#include "components/Input.h"
+#include "components/BoxPhysics.h"
+#include "components/ContactListener.h"
+#include "components/Shader.h"
+
 void test_components()
 {
-
+    Texture texture = Texture();
+    Sprite sprite = Sprite(texture, glm::vec2(10.0f, 10.0f));
+    Input input = Input();
+    BoxPhysics boxPhysics = BoxPhysics();
+    ContactListener contactListener = ContactListener();
+    Shader shader = Shader();
 
 //    ResourceManager::LoadTexture("assets\\textures\\container.jpg", true, "container");
 //    Sprite sprite(ResourceManager::GetTexture("container"), glm::vec2(0.0f, 0.0f));
@@ -37,6 +49,8 @@ static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
+
+// TODO: always check if glad is initialized when making a "glad related call"
 
 /// Main program function
 int main(int argc, char **argv)
@@ -69,6 +83,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "Failed to initialize OpenGL loader!\n");
         return 0;
     }
+
+    test_components(); // Note: processed only if glad is initialized
 
     // Main loop
     while (!glfw->quit())
