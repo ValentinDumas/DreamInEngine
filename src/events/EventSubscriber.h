@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DREAMINENGINE_EVENTSUBSCRIBER_H
+#define DREAMINENGINE_EVENTSUBSCRIBER_H
 
 class Scene;
 
@@ -23,3 +24,5 @@ public:
 	*/
 	virtual void receive(Scene* scene, const T& event) = 0;
 };
+
+#endif // DREAMINENGINE_EVENTSUBSCRIBER_H

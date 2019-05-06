@@ -8,9 +8,23 @@
 
 #include "utils/FileSystem.hpp"
 
+#include "entities/Entity.h"
+
+#include "events/Events.h"
+#include "events/EventSubscriber.h"
+
+class Scene
+{
+public:
+    Scene() {}
+};
+
 /// Main program function
 int main(int argc, char **argv)
 {
+    Scene *scene = new Scene();
+    Entity e = Entity("e1", 1);
+    events::Events *ev = new events::Events(scene);
     auto path = utils::filesystem::get_current_path();
     std::cout << "Current main path: " << path << std::endl;
 

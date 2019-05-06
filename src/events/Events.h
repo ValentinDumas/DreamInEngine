@@ -1,13 +1,14 @@
-#pragma once
+#ifndef DREAMINENGINE_EVENTS_H
+#define DREAMINENGINE_EVENTS_H
 
 class Scene;
 
-namespace Events
+namespace events
 {
 	class Events
 	{
 	public:
-		Events(Scene* scene);
+		Events(Scene* scene) {}
 	};
 
 #pragma region All Events Data
@@ -39,3 +40,5 @@ namespace Events
 #pragma endregion 
 
 }
+
+#endif // DREAMINENGINE_EVENTS_H
