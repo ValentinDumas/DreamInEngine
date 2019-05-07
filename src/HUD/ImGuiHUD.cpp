@@ -1106,7 +1106,7 @@ void ImGuiHUD::UpdateCurrentWindowRectData(ImGuiWindowRect* window_rect)
 //ImGui::PopTextWrapPos();
 #pragma endregion
 
-#pragma region Drag'N'Drop
+#pragma region DragNDrop
 //if (ImGui::TreeNode("Drag and Drop"))
 //{
 //	{
