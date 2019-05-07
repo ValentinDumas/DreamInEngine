@@ -17,7 +17,7 @@
 #include <components/Input.h>
 #include <utils/InputEnum.h>
 
-#include <utils/types.h>
+#include <utils/typ.h>
 #include <events/Events.h>
 #include <events/EventSubscriber.h>
 

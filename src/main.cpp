@@ -4,7 +4,7 @@
 
 #include "lua/LuaScript.h"
 
-//#include "utils/types.h"
+//#include "utils/typ.h"
 
 #include "utils/FileSystem.hpp"
 
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 //
 ////    utils::filesystem::print_directory_entries("");
 //
-//    //TODO : remove "#include <utils/types.h>" call from Scene.h && refactor Scene.h...
+//    //TODO : remove "#include <utils/typ.h>" call from Scene.h && refactor Scene.h...
 ////    auto t_index = getTypeIndex<int>();
 //
 //    std::vector<std::string> assets_paths;

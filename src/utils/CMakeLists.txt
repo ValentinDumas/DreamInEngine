@@ -10,7 +10,7 @@ project(utils)
 # ------------------------------------------------------------------------------
 # Mathematics Target Library
 # ------------------------------------------------------------------------------
-add_library(${PROJECT_NAME} STATIC FileSystem.cpp fps.cpp types.cpp)
+add_library(${PROJECT_NAME} STATIC FileSystem.cpp fps.cpp typ.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ./.. PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}) # Note: see if it includes .hpp && .cpp OR only .cpp files
 
