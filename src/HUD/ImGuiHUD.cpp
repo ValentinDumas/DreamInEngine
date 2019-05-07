@@ -22,7 +22,7 @@
 #include<iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <cstring>
 
 static bool query_save_as = false;
 
@@ -505,7 +505,7 @@ void ImGuiHUD::update() {
                 }
 
                 char entity_name[64];
-                strcpy_s(entity_name, m_scene_manager.active_scene()->getEntities().getVector()[j]->name.c_str()); // Convert std::string to char array. Purpose: we need to pass a char array pointer to ImGui::InputText.
+                std::strcpy(entity_name, m_scene_manager.active_scene()->getEntities().getVector()[j]->name.c_str()); // Convert std::string to char array. Purpose: we need to pass a char array pointer to ImGui::InputText.
                 // [IMPORTANT] : The Popup is referring to the last Imgui:: item !
                 if (ImGui::BeginPopupContextItem(entity_name)) // When used after an item that has an ID (here the Button), we can skip providing an ID to BeginPopupContextItem().
                 {

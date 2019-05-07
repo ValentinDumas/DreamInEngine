@@ -66,8 +66,8 @@ public:
         glEnable(GL_SMOOTH);
 
         // Load shaders & count
-        unsigned int shader_count = ResourceManager::LoadShaders("assets\\shaders");
-        std::cout << "Shaders Loaded: " << shader_count << std::endl;
+        ResourceManager::LoadShader("assets\\shaders\\sprite2D.vert", "assets\\shaders\\sprite2D.frag", nullptr, "sprite2D");
+//        std::cout << "Shaders Loaded: " << shader_count << std::endl;
 
         // Load textures & count
         unsigned int texture_count = ResourceManager::LoadTextures("assets\\textures");
