@@ -64,16 +64,16 @@ namespace ImGui {
     } Alignment;
 
     struct TabsDesc {
-        __int32	lableCount;
+        int	lableCount;
         float lableWidth;
-        __int32 currentidx;
+        int currentidx;
 
     };
 
     struct Tabs {
         TabsDesc* tbd;
         ImGuiID ID;
-        __int32 selectedIdx;
+        int selectedIdx;
     };
 
     static   ImVector<Tabs*> CacheTabs;
