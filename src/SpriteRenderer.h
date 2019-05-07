@@ -1,8 +1,11 @@
-#pragma once
+#ifndef SPRITE_RENDERER_H
+#define SPRITE_RENDERER_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include "components/Shader.h"
+
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Texture;
 
@@ -18,14 +21,16 @@ public:
 		glm::vec2 size = glm::vec2(10, 10),
 		float rotate = 0.0f,
 		glm::vec3 color = glm::vec3(1.0f),
-		GLboolean mirror = GL_FALSE);
+		bool mirror = false);
 
 	// TODO: do something with this method or delete it
-	void ChangeVerticeData(GLfloat *vertices);
+	void ChangeVerticeData(float *vertices);
 
 private:
 	Shader shader;
-	GLuint quadVAO, quadVBO;
+	unsigned int quadVAO, quadVBO;
 
 	void initRenderData();
 };
+
+#endif // SPRITE_RENDERER_H

@@ -4,6 +4,7 @@
 
 #ifndef DREAMINENGINE_IMGUIGLFWCONTEXT_H
 #define DREAMINENGINE_IMGUIGLFWCONTEXT_H
+
 #include <string>
 
 class GLFWEnvironment;

@@ -4,15 +4,15 @@
 
 #include <HUD/ImGuiHUD.h>
 
-#include <GLEW/glew.h>
+#include <glad/glad.h>
 #include <GLFWEnvironment.h>
 #include <GLFW/glfw3.h>
 
-#include <scenes/SceneManager.h>
-#include <ResourceManager.h>
-#include <SpriteRenderer.h>
+#include "SceneManager.h"
+#include "ResourceManager.h"
+#include "SpriteRenderer.h"
 
-#include <utils/fps.h>
+#include "utils/fps.h"
 #include <utility>
 
 #define IDENTITY_MATRICE 1.0f
@@ -62,12 +62,12 @@ bool SceneManager::init() {
 	this->add_component(COMPONENT_BOX2DPHYSICS, 0);
 
 	// Face (Entity ID: 1)
-	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->Texture = ResourceManager::GetTexture("face");
+	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->m_texture = ResourceManager::GetTexture("face");
 	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->Position = glm::vec2(50.0, 300.0f);
 	this->add_component(COMPONENT_INPUT, 1);
 
 	// Pokeball (Entity ID: 2)
-	this->get_component<Sprite>(COMPONENT_SPRITE, 2)->Texture = ResourceManager::GetTexture("pokeball");
+	this->get_component<Sprite>(COMPONENT_SPRITE, 2)->m_texture = ResourceManager::GetTexture("pokeball");
 	this->get_component<Sprite>(COMPONENT_SPRITE, 2)->Position = glm::vec2(50.0, 500.0f);
 
 	//this->get_components(0); // entity 0's component mask
@@ -247,7 +247,7 @@ void SceneManager::update_sprite(Sprite *sprite) {
 
 void SceneManager::render_sprite(Sprite *sprite) {
 	// TODO: Do mirror towards X-axis too...  => Make a struct to store the Axis
-	spriteRenderer->DrawSprite(sprite->Texture, sprite->Position, sprite->Size, sprite->Rotation, sprite->Color, GL_FALSE);
+	spriteRenderer->DrawSprite(sprite->m_texture, sprite->Position, sprite->Size, sprite->Rotation, sprite->Color, GL_FALSE);
 }
 
 // TODO: move to another location

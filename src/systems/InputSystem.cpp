@@ -1,5 +1,4 @@
-#include "systems/InputSystem.h"
-
+#include "InputSystem.h"
 
 void InputSystem::update(std::vector<InputEnum> inputs, ComponentStore<Input> inputs_c , ComponentStore<Sprite> sprites)
 {

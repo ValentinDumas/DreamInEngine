@@ -5,10 +5,11 @@
 #ifndef DREAMINENGINE_BOXPHYSICSSYSTEM_H
 #define DREAMINENGINE_BOXPHYSICSSYSTEM_H
 
-#include <components/Sprite.h>
-#include <utils/ComponentStore.h>
-#include <components/BoxPhysics.h>
-#include "Box2D/Box2D.h"
+#include "components/Sprite.h"
+#include "components/BoxPhysics.h"
+
+#include "utils/ComponentStore.h"
+#include <Box2D/Box2D.h>
 
 #include <iostream>
 
@@ -17,6 +18,7 @@ public:
 	void update(ComponentStore<BoxPhysics> boxs, ComponentStore<Sprite> sprites) {
 		for (std::unordered_map<unsigned int, unsigned int>::iterator it = boxs.getMap().begin(); it != boxs.getMap().end(); ++it) {
 			auto itSprite = sprites.getMap().find(it->first);
+
 			if (itSprite != sprites.getMap().end()) {
 				Sprite* sprite = sprites.get(itSprite->first);
 				BoxPhysics* box = boxs.get(itSprite->first);

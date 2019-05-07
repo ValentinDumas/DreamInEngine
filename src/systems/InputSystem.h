@@ -2,10 +2,12 @@
 #define DREAMINENGINE_INPUTSYSTEM_H
 
 #include "utils/InputEnum.h"
-#include <vector>
 #include "utils/ComponentStore.h"
+
 #include "components/Sprite.h"
 #include "components/Input.h"
+
+#include <vector>
 
 class InputSystem {
 private :

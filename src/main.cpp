@@ -4,7 +4,7 @@
 
 #include "lua/LuaScript.h"
 
-#include "utils/types.h"
+//#include "utils/types.h"
 
 #include "utils/FileSystem.hpp"
 
@@ -12,12 +12,6 @@
 
 #include "events/Events.h"
 #include "events/EventSubscriber.h"
-
-class Scene
-{
-public:
-    Scene() {}
-};
 
 #include "components/Sprite.h"
 
@@ -34,6 +28,8 @@ public:
 
 #include "SpriteRenderer.h"
 
+#include "scenes/SceneManager.h"
+
 static void glfw_error_callback(int error, const char* description)
 {
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -48,76 +44,128 @@ void test_components()
 
 // TODO: always check if glad is initialized when making a "glad related call"
 
-/// Main program function
-int main(int argc, char **argv)
+class Engine
 {
-    Scene *scene = new Scene();
-    Entity e = Entity("e1", 1);
-    events::Events *ev = new events::Events(scene);
-    auto path = utils::filesystem::get_current_path();
-    std::cout << "Current main path: " << path << std::endl;
-
-    utils::filesystem::print_directory_entries(path);
-
-    //auto a = utils::filesystem::get_entry(path + "\\DreamInEngine.exe");
-
-//    utils::filesystem::print_directory_entries("");
-
-    auto t_index = getTypeIndex<int>();
-
-    std::vector<std::string> assets_paths;
-    utils::filesystem::get_tree(path, assets_paths);
-
-    std::cout << "Setup status: SUCCESS !" << std::endl;
-    // std::cin.get();
-
-    GLFWEnvironment *glfw = new GLFWEnvironment();
-    glfw->init();
-
-    bool err = gladLoadGL() == 0;
-    if (err) {
-        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-        return 0;
-    }
-
-    test_components(); // Note: processed only if glad is initialized
-
-    ResourceManager::LoadShader("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.vert", "C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.frag", nullptr, "sprite2D");
-    ResourceManager::LoadTexture(std::string("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\awesomeface.png").c_str(), true, "awesomeface");
-    Sprite sprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(0.0f, 0.0f));
-
-    SpriteRenderer *spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite2D"));
-
-    // Main loop
-    while (!glfw->quit())
+public:
+    void Start()
     {
-        // Poll and handle events (inputs, window resize, etc.)
-        glfwPollEvents(); // poll glfw events
-        glfw->process_input(); // inputs related to glfw
+        //GLFWEnvironment* m_glfw_environment = new GLFWEnvironment("DreamIn Engine", 1920, 1080, GL_FALSE);
+        GLFWEnvironment* m_glfw_environment = new GLFWEnvironment(false);
+        m_glfw_environment->init();
 
-        int display_w, display_h;
-        glfwMakeContextCurrent(glfw->get_window());
-        glfwGetFramebufferSize(glfw->get_window(), &display_w, &display_h);
+        // TODO: Move all GL/GLEW options/parameters to a GLEWEnvironment/GLEWContext class
+        bool err = gladLoadGL() == 0;
+        if (err) {
+            fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+            return;
+        }
 
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(glfw->get_width()), static_cast<GLfloat>(glfw->get_height()), 0.0f, -1.0f, 1.0f);
-        // Configure shaders
-        ResourceManager::GetShader("sprite2D").Use().SetInteger("image", 0);
-        ResourceManager::GetShader("sprite2D").SetMatrix4("projection", projection);
-        spriteRenderer->DrawSprite(sprite.m_texture, sprite.Position);
+        glEnable(GL_SMOOTH);
 
-        sprite.Position.x += 1;
-        sprite.Position.y += 1;
+        // Load shaders & count
+        unsigned int shader_count = ResourceManager::LoadShaders("assets\\shaders");
+        std::cout << "Shaders Loaded: " << shader_count << std::endl;
 
+        // Load textures & count
+        unsigned int texture_count = ResourceManager::LoadTextures("assets\\textures");
+        std::cout << "Textures Loaded: " << texture_count << std::endl;
 
-        glfwMakeContextCurrent(glfw->get_window());
-        glfwSwapBuffers(glfw->get_window());
+        SceneManager* sm = new SceneManager(m_glfw_environment);
+
+        // Create a new Scene and add it to the Scene Manager
+        sm->createScene("Aloha");
+
+        // Select a scene to be marked as active
+        sm->select_scene("Aloha");
+
+        sm->start();
+
+        delete sm; sm = nullptr;
     }
+};
 
-    glfw->close();
+int main(int argc, char** argv) {
+    Engine *DreamInEngine = new Engine();
+    DreamInEngine->Start();
+
+    delete DreamInEngine;
+    DreamInEngine = nullptr;
 
     return 0;
 }
+
+//
+///// Main program function
+//int mainXP(int argc, char **argv)
+//{
+//    auto path = utils::filesystem::get_current_path();
+//    std::cout << "Current main path: " << path << std::endl;
+//
+//    utils::filesystem::print_directory_entries(path);
+//
+//    //auto a = utils::filesystem::get_entry(path + "\\DreamInEngine.exe");
+//
+////    utils::filesystem::print_directory_entries("");
+//
+//    //TODO : remove "#include <utils/types.h>" call from Scene.h && refactor Scene.h...
+////    auto t_index = getTypeIndex<int>();
+//
+//    std::vector<std::string> assets_paths;
+//    utils::filesystem::get_tree(path, assets_paths);
+//
+//    std::cout << "Setup status: SUCCESS !" << std::endl;
+//    // std::cin.get();
+//
+//    GLFWEnvironment *glfw = new GLFWEnvironment();
+//    glfw->init();
+//
+//    bool err = gladLoadGL() == 0;
+//    if (err) {
+//        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+//        return 0;
+//    }
+//
+//    test_components(); // Note: processed only if glad is initialized
+//
+//    ResourceManager::LoadShader("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.vert", "C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\shaders\\sprite2D.frag", nullptr, "sprite2D");
+//    ResourceManager::LoadTexture(std::string("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\awesomeface.png").c_str(), true, "awesomeface");
+//    Sprite sprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(0.0f, 0.0f));
+//
+//    SpriteRenderer *spriteRenderer = new SpriteRenderer(ResourceManager::GetShader("sprite2D"));
+//
+//    // Main loop
+//    while (!glfw->quit())
+//    {
+//        // Poll and handle events (inputs, window resize, etc.)
+//        glfwPollEvents(); // poll glfw events
+//        glfw->process_input(); // inputs related to glfw
+//
+//        int display_w, display_h;
+//        glfwMakeContextCurrent(glfw->get_window());
+//        glfwGetFramebufferSize(glfw->get_window(), &display_w, &display_h);
+//
+//        glViewport(0, 0, display_w, display_h);
+//        glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
+//        glClear(GL_COLOR_BUFFER_BIT);
+//
+//        glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(glfw->get_width()), static_cast<GLfloat>(glfw->get_height()), 0.0f, -1.0f, 1.0f);
+//        // Configure shaders
+//        ResourceManager::GetShader("sprite2D").Use().SetInteger("image", 0);
+//        ResourceManager::GetShader("sprite2D").SetMatrix4("projection", projection);
+//        spriteRenderer->DrawSprite(sprite.m_texture, sprite.Position);
+//
+//        sprite.Position.x += 1;
+//        sprite.Position.y += 1;
+//
+//
+//        glfwMakeContextCurrent(glfw->get_window());
+//        glfwSwapBuffers(glfw->get_window());
+//    }
+//
+//    glfw->close();
+//
+//    return 0;
+//}

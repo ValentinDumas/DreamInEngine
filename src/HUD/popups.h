@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/filesystem.h"
+#include "utils/FileSystem.hpp"
 
 enum PopupStatus
 {
@@ -26,10 +26,11 @@ PopupStatus ShowSaveAsPopup()
 		{
 			// TODO: In further updates, check if the project is a valid project before displaying it as a 'project"
 			// List all items in project :)
-			for (auto &p : std::experimental::filesystem::directory_iterator("projects"))
+			for (auto &paths : utils::filesystem::get_directory_entries("projects"))
 			{
+			    std::cout << "P: " << paths << std::endl;
 
-				ImGui::Text("%s", p.path().filename().string().c_str());
+				ImGui::Text("%s", paths.c_str());
 			}
 		}
 
@@ -41,11 +42,11 @@ PopupStatus ShowSaveAsPopup()
 
 		if (ImGui::InputText("Project name", project_name, sizeof(project_name)))
 		{
+		    // TODO: Implement this
 			// FLAG ! to go to InputText implementation
-
-			project_already_exists = FolderExists(project_name);
-			// NOTE: in this statemet, it does not check for emptyness directly when the popup shows
-			project_empty = (project_name[0] == '\0');
+//			project_already_exists = FolderExists(project_name);
+//			// NOTE: in this statemet, it does not check for emptyness directly when the popup shows
+//			project_empty = (project_name[0] == '\0');
 		}
 
 		if (project_already_exists)

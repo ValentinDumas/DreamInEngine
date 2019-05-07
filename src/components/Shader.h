@@ -1,35 +1,34 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <string>
-
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <string>
 
 class Shader
 {
 public:
-	GLuint ID;
+	unsigned int ID;
 
 	Shader() { }
 
 	Shader  &Use();
 
 	// Compiles the shader from given source code
-	void    Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr);
+	void    Compile(const char *vertexSource, const char *fragmentSource, const char *geometrySource = nullptr);
 
-	Shader& SetFloat(const GLchar *name, GLfloat value, GLboolean useShader = false);
-	Shader&    SetInteger(const GLchar *name, GLint value, GLboolean useShader = false);
-	Shader&    SetVector2f(const GLchar *name, GLfloat x, GLfloat y, GLboolean useShader = false);
-	Shader&    SetVector2f(const GLchar *name, const glm::vec2 &value, GLboolean useShader = false);
-	Shader&    SetVector3f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLboolean useShader = false);
-	Shader&    SetVector3f(const GLchar *name, const glm::vec3 &value, GLboolean useShader = false);
-	Shader&    SetVector4f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w, GLboolean useShader = false);
-	Shader&    SetVector4f(const GLchar *name, const glm::vec4 &value, GLboolean useShader = false);
-	Shader&    SetMatrix4(const GLchar *name, const glm::mat4 &matrix, GLboolean useShader = false);
+	Shader& SetFloat(const char *name, float value, bool useShader = false);
+	Shader&    SetInteger(const char *name, int value, bool useShader = false);
+	Shader&    SetVector2f(const char *name, float x, float y, bool useShader = false);
+	Shader&    SetVector2f(const char *name, const glm::vec2 &value, bool useShader = false);
+	Shader&    SetVector3f(const char *name, float x, float y, float z, bool useShader = false);
+	Shader&    SetVector3f(const char *name, const glm::vec3 &value, bool useShader = false);
+	Shader&    SetVector4f(const char *name, float x, float y, float z, float w, bool useShader = false);
+	Shader&    SetVector4f(const char *name, const glm::vec4 &value, bool useShader = false);
+	Shader&    SetMatrix4(const char *name, const glm::mat4 &matrix, bool useShader = false);
 private:
-	void    checkCompileErrors(GLuint object, std::string type);
+	void    checkCompileErrors(unsigned int object, std::string type);
 };
 
 #endif

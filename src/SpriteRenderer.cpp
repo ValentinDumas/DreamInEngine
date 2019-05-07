@@ -1,6 +1,8 @@
 #include "components/Texture.h"
 #include "SpriteRenderer.h"
 
+#include <glad/glad.h>
+
 SpriteRenderer::SpriteRenderer(Shader shader)
 {
 	this->shader = shader;
@@ -12,7 +14,7 @@ SpriteRenderer::~SpriteRenderer()
 }
 
 void SpriteRenderer::DrawSprite(Texture &texture, glm::vec2 position,
-	glm::vec2 size, GLfloat rotate, glm::vec3 color, GLboolean mirror)
+	glm::vec2 size, float rotate, glm::vec3 color, bool mirror)
 {
 	// Prepare transformations
 	this->shader.Use();

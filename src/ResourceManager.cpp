@@ -13,7 +13,7 @@
 #include <fstream>
 #include <list>
 
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 #include "stb/stb_image.h"
 
@@ -124,7 +124,7 @@ Shader ResourceManager::GetShader(std::string name)
 	return Shaders[name];
 }
 
-Texture ResourceManager::LoadTexture(const GLchar *file, GLboolean alpha, std::string name)
+Texture ResourceManager::LoadTexture(const char *file, bool alpha, std::string name)
 {
 //	std::string current_path = utils::filesystem::get_current_path() + "\\";
 //	current_path += file;
@@ -192,7 +192,7 @@ Shader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLch
 	return shader;
 }
 
-Texture ResourceManager::loadTextureFromFile(const GLchar *file, GLboolean alpha)
+Texture ResourceManager::loadTextureFromFile(const char *file, bool alpha)
 {
 	// Create Texture object
 	Texture texture;

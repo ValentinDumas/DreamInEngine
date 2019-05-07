@@ -5,7 +5,7 @@
 #ifndef DREAMINENGINE_PLAYERCONTROL_H
 #define DREAMINENGINE_PLAYERCONTROL_H
 
-#include <systems/System.h>
+#include "System.h" // Inheritance requires a dependency to the parent in the .h (in our case)
 
 class PlayerControl : System {
 
