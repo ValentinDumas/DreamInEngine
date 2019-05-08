@@ -41,10 +41,13 @@ int ResourceManager::LoadTextures(const std::string& path)
 	std::string texture_extension;
 	unsigned int texture_count = 0;
 
-//	for (auto & filepath : GetRecursiveFilePathsFromDirectory(path))
-//	{
-//		bool is_extension_valid = false;
-//
+	std::vector<std::string> texture_paths;
+    utils::filesystem::get_tree(path, texture_paths, false);
+
+	for (auto & filepath : texture_paths)
+	{
+		bool is_extension_valid = false;
+
 //		if (!filepath.has_extension()) continue;
 //
 //		texture_filename = filepath.filename().string();
@@ -60,10 +63,17 @@ int ResourceManager::LoadTextures(const std::string& path)
 //		}
 //
 //		if (!is_extension_valid) continue;
-//
-//		ResourceManager::LoadTexture((filepath).string().c_str(), GL_TRUE, remove_extension(texture_filename));
-//		texture_count++;
-//	}
+
+        std::string filename = utils::filesystem::get_filename(filepath);
+        if(!filename.empty())
+        {
+            ResourceManager::LoadTexture(filepath.c_str(), GL_TRUE, filename);
+            texture_count++;
+        } else{
+            std::cout << "[info] (LoadTextures) Path " << filepath << " does not match a file path (folder instead ?)" << std::endl;
+        }
+
+	}
 
 	return texture_count++;
 }
@@ -124,7 +134,7 @@ Shader ResourceManager::GetShader(std::string name)
 	return Shaders[name];
 }
 
-Texture ResourceManager::LoadTexture(const char *file, bool alpha, std::string name)
+Texture ResourceManager::LoadTexture(const char *file, bool alpha, const std::string &name)
 {
 //	std::string current_path = utils::filesystem::get_current_path() + "\\";
 //	current_path += file;

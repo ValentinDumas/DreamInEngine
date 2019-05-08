@@ -70,7 +70,8 @@ public:
 //        std::cout << "Shaders Loaded: " << shader_count << std::endl;
 
         // Load textures & count
-        unsigned int texture_count = ResourceManager::LoadTextures("assets\\textures");
+//        ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
+        unsigned int texture_count = ResourceManager::LoadTextures("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures");
         std::cout << "Textures Loaded: " << texture_count << std::endl;
 
         SceneManager* sm = new SceneManager(m_glfw_environment);

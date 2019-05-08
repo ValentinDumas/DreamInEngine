@@ -62,7 +62,7 @@ bool SceneManager::init() {
 	this->add_component(COMPONENT_BOX2DPHYSICS, 0);
 
 	// Face (Entity ID: 1)
-	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->m_texture = ResourceManager::GetTexture("face");
+	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->m_texture = ResourceManager::GetTexture("awesomeface");
 	this->get_component<Sprite>(COMPONENT_SPRITE, 1)->Position = glm::vec2(50.0, 300.0f);
 	this->add_component(COMPONENT_INPUT, 1);
 

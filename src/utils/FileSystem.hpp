@@ -14,6 +14,10 @@ namespace utils {
     namespace filesystem {
         std::string get_filename(const std::string& path);
 
+        bool is_file(const std::string& path);
+
+        bool is_directory(const std::string& path);
+
         bool set_working_path(const std::string& path);
 
         void get_tree_filepaths(std::unique_ptr<cppfs::Tree>& file_tree, std::vector<std::string>& paths);

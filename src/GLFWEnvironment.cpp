@@ -160,7 +160,7 @@ int GLFWEnvironment::init() {
 	// TODO : Loading those images should be the responsibility of the ResourceManager
 	// Window icon & minified icon
 //	GLFWimage icon[2];
-//	icon[0].pixels = SOIL_load_image("resources/textures/pokeball_200px.png", &icon[0].width, &icon[0].height, nullptr, SOIL_LOAD_RGBA);
+//	icon[0].pixels = SOIL_load_image("resources/textures/pokeball.png", &icon[0].width, &icon[0].height, nullptr, SOIL_LOAD_RGBA);
 //	icon[1].pixels = SOIL_load_image("resources/textures/container.jpg", &icon[1].width, &icon[1].height, nullptr, SOIL_LOAD_RGBA);
 //	glfwSetWindowIcon(glfwGetCurrentContext(), 2, icon);
 //	SOIL_free_image_data(icon[0].pixels);

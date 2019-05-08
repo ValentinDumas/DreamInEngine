@@ -448,7 +448,7 @@ void ImGuiHUD::update() {
             ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.2f));
             ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 
-            const Texture texture_button_play = ResourceManager::GetTexture("play");
+            const Texture texture_button_play = ResourceManager::GetTexture("button_play");
             if (ImGui::ImageButton((void*)(intptr_t)texture_button_play.ID, ImVec2(32.0f, 32.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f), 0, ImVec4())) {
                 if (m_scene_manager.getRunningConfigEnum() == CONFIG && m_scene_manager.getRunningConfigEnum() != RUNNING)
                 {
@@ -458,7 +458,7 @@ void ImGuiHUD::update() {
 
             ImGui::SameLine();
 
-            const Texture texture_button_stop = ResourceManager::GetTexture("stop");
+            const Texture texture_button_stop = ResourceManager::GetTexture("button_stop");
             if (ImGui::ImageButton((void*)(intptr_t)texture_button_stop.ID, ImVec2(32.0f, 32.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f), 0)) {
                 if (m_scene_manager.getRunningConfigEnum() == RUNNING && m_scene_manager.getRunningConfigEnum() != CONFIG)
                 {

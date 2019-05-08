@@ -28,8 +28,34 @@ static std::string current_working_path = "";
 
 std::vector<std::string> selected_paths; // Note: stores all the previous (and the current ?) selected path
 
-std::string get_filename(const std::string &path) {
-    return (cppfs::fs::open(path)).fileName();
+// TODO: watch the behavior of this function when path does not exists in owner's FileSystem
+std::string utils::filesystem::get_filename(const std::string &path) {
+    cppfs::FilePath filePath(path);
+
+    std::string filename = filePath.fileName();
+
+    int found = -1;
+    found = filename.find_last_of(".");
+
+    std::string filename_without_extension;
+
+    if (found == -1) {
+        std::cout << "[Info] extension not found for file: " << filename.c_str() << std::endl;
+        return ""; // folder = no filename
+    } else // at least one "." char found
+    {
+        filename_without_extension = filename.substr(0, found); // return all before the lasrt dot "."
+    }
+
+    return filename_without_extension;
+}
+
+bool utils::filesystem::is_file(const std::string &path) {
+    return !utils::filesystem::get_filename(path).empty(); // is_file if not empty
+}
+
+bool utils::filesystem::is_directory(const std::string &path) {
+    return utils::filesystem::get_filename(path).empty(); // is_directory if empty
 }
 
 bool utils::filesystem::set_working_path(const std::string &path) {
@@ -44,58 +70,34 @@ bool utils::filesystem::set_working_path(const std::string &path) {
     return true;
 }
 
-void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> &file_tree, std::vector<std::string>& paths) {
-    // TODO: while tree children size > 0 ? continue getting into children ?
+// Process a tree level
+void utils::filesystem::get_tree_filepaths(std::unique_ptr<cppfs::Tree> &file_tree, std::vector<std::string> &paths)
+{
+    for (auto &child : file_tree->listFiles()) {
+        std::string tree_child_complete_path = (file_tree.get()->path() + "\\" + child); // file path (absolute)
+        paths.push_back(tree_child_complete_path);
+    }
+
     std::vector<std::unique_ptr<cppfs::Tree> > &tree_children = file_tree->children();
 
-//    if(!tree_children.empty())
-//    {
-    for (auto &tree_child : tree_children) {
-        std::string tree_child_path = tree_child->path();
-
-        // If the child tree matches a directory, go further...
-        // Else, (the child tree matches a file
-
-        // TODO: Improve this function:
-        // TODO: While tree_child->listFiles has directories... get path
-        // TODO: Otherwise, display all files...
-
-        // Process this tree level
-        for (auto &child : tree_child->listFiles()) {
-            std::string tree_child_complete_path = (tree_child_path + "\\" + child);
-            std::cout << tree_child_complete_path << std::endl;
-            paths.push_back(tree_child_complete_path);
-        }
-
-        // Look for deeper levels from this tree node
-        utils::filesystem::get_tree_filepaths(tree_child, paths);
+    for (auto &tree_child : tree_children) // if at least one children
+    {
+        utils::filesystem::get_tree_filepaths(tree_child, paths); // Look for deeper levels from this tree node
     }
 //    }
 }
 
-void utils::filesystem::get_tree(const std::string &path, std::vector<std::string>& paths, bool include_hash) {
+void utils::filesystem::get_tree(const std::string &path, std::vector<std::string> &paths, bool include_hash) {
     cppfs::FileHandle file_handle = cppfs::fs::open(path);
-    std::unique_ptr<cppfs::Tree> file_tree;
+    std::unique_ptr<cppfs::Tree> tree; // tree pointing to given (root) path
 
-    std::vector<std::string> root_entries;
+    if (file_handle.exists()) { // (root) path exists => tree opened
+        tree = file_handle.readTree(path, include_hash); // Read the tree from the given path
 
-    if (file_handle.exists()) {
-        // Read the whole tree from the given path
-        file_tree = file_handle.readTree(path, include_hash);
+        paths.push_back(tree->path()); // Get & Register the root path for this tree
+//        std::cout << "TREE root path: " << tree->path() << std::endl;
 
-        // Get the root path
-        std::cout << "TREE root path: " << file_tree->path() << std::endl;
-
-        utils::filesystem::get_tree_filepaths(file_tree, paths);
-
-//        for(auto &tree_child : tree_children)
-//        {
-//            std::cout << "TREE children path: " << tree_child.get()->path() << std::endl;
-//            for(auto & tree_child_entry : tree_child.get()->listFiles())
-//            {
-//                std::cout << " ----------> " << tree_child_entry.c_str() << std::endl;
-//            }
-//        }
+        utils::filesystem::get_tree_filepaths(tree, paths);
     }
 }
 

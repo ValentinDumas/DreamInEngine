@@ -31,7 +31,7 @@ public:
 	// Retrieves a stored sader
 	static Shader   GetShader(std::string name);
 	// Loads (and generates) a texture from file
-	static Texture LoadTexture(const char *file, bool alpha, std::string name);
+	static Texture LoadTexture(const char *file, bool alpha, const std::string& name);
 	// Retrieves a stored texture
 	static Texture GetTexture(std::string name);
 	// Properly de-allocates all loaded resources
