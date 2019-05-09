@@ -6,41 +6,30 @@
 #include <GLFWEnvironment.h>
 
 #include <scenes/SceneManager.h>
-#include <ImGui/imgui.h>
-#include <ImGui/imgui_impl_glfw.h>
-#include <ImGui/imgui_impl_opengl3.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 // TODO: Remove this include as well as the ToggleButton from this file
-#include <ImGui/imgui_internal.h> // NOTE: Only for ToggleButton example..
+#include <imgui/imgui_internal.h> // NOTE: Only for ToggleButton example..
 
-// NOTE: only for windows !
-#include <dirent.h>
-
-#ifdef WIN32
-#include <direct.h>
-#define GetCurrentDir _getcwd
-//#else
-//#include <unistd.h>
-//#define GetCurrentDir getcwd
-#endif
 #include<iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <GLFW/glfw3.h>
 
-#include <experimental/filesystem>
-#include "ImGui/imgui.h"
+#include "utils/FileSystem.hpp"
+#include "imgui/imgui.h"
 #include "HUD/popups.h"
-namespace fs = std::experimental::filesystem;
 
 static bool query_save_as = false;
 
-std::string GetCurrentWorkingDir(void) {
-    char buff[FILENAME_MAX];
-    GetCurrentDir(buff, FILENAME_MAX);
-    std::string current_working_dir(buff);
-    return current_working_dir;
-}
+//std::string GetCurrentWorkingDir(void) {
+//    char buff[FILENAME_MAX];
+//    GetCurrentDir(buff, FILENAME_MAX);
+//    std::string current_working_dir(buff);
+//    return current_working_dir;
+//}
 
 bool begin_child_tab_content(unsigned int selected_tab, const char* str_id, const ImVec2& size_arg, bool border, ImGuiWindowFlags extra_flags)
 {
@@ -73,16 +62,16 @@ namespace ImGui {
     } Alignment;
 
     struct TabsDesc {
-        __int32	lableCount;
+        int	lableCount;
         float lableWidth;
-        __int32 currentidx;
+        int currentidx;
 
     };
 
     struct Tabs {
         TabsDesc* tbd;
         ImGuiID ID;
-        __int32 selectedIdx;
+        int selectedIdx;
     };
 
     static   ImVector<Tabs*> CacheTabs;
@@ -551,7 +540,7 @@ void ImGuiHUD::update() {
                     ImGui::EndGroup();
                     ImGui::EndPopup();
                 }
-                ImGui::SameLine(); ImGui::Text("�");
+                ImGui::SameLine(); ImGui::Text("");
             }
         }
 
@@ -936,7 +925,7 @@ void ImGuiHUD::update() {
             ImGui::BeginGroup();
             {
                 ImGui::Text("Project Explorer");
-                ImGui::Text("Allo:");
+                ImGui::Text("Displaying project tree...");
                 // Display project tree
 //                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
             }
