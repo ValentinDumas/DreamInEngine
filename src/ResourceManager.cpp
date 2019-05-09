@@ -35,6 +35,7 @@ unsigned int ResourceManager::CountTextures()
 	return Textures.size();
 }
 
+// TODO: repair valid extension check when loading textures
 int ResourceManager::LoadTextures(const std::string& path)
 {
 	std::string texture_filename;
@@ -64,7 +65,7 @@ int ResourceManager::LoadTextures(const std::string& path)
 //
 //		if (!is_extension_valid) continue;
 
-        std::string filename = utils::filesystem::get_filename(filepath);
+        std::string filename = utils::filesystem::get_filename_without_extension(filepath);
         if(!filename.empty())
         {
             ResourceManager::LoadTexture(filepath.c_str(), GL_TRUE, filename);
@@ -81,22 +82,35 @@ int ResourceManager::LoadTextures(const std::string& path)
 int ResourceManager::LoadShaders(const std::string& path)
 {
 	// Load Shaders (program, vertex, fragment)
-	std::string vertex_filename;
-	std::string fragment_filename;
+	std::string vertex_filepath;
+	std::string fragment_filepath;
 	unsigned int file_counter = 0;
 	unsigned int shaders_count = 0;
 
-//	for (auto & filepath : utils::filesystem::get_directory_entries(path))
-//	{
-//		if (filepath.extension().string() == ".vert")
+	std::vector<std::string> shader_paths;
+	utils::filesystem::get_tree(path, shader_paths, false);
+
+	for(const std::string& shader_path : shader_paths)
+	{
+//		if(utils::filesystem::is_file(shader_path) && utils::filesystem::has_extension(shader_path)) // We suppose it is a file, with an extension
 //		{
-//			vertex_filename = filepath.filename().string();
+		    if(utils::filesystem::get_file_extension(shader_path) == ".vert")
+            {
+                //TODO: shader file extensions as constants at the top of the resourcemanager file.
+                std::string shader_filepath_without_extension = utils::filesystem::get_filepath_without_extension(shader_path);
+                vertex_filepath = (shader_filepath_without_extension + ".vert");
+                fragment_filepath = (shader_filepath_without_extension + ".frag");
+
+                // Check if fragment shader exists
+                if(utils::filesystem::exists(fragment_filepath))
+				{
+					ResourceManager::LoadShader(vertex_filepath.c_str(), fragment_filepath.c_str(), nullptr, utils::filesystem::get_filename_without_extension(shader_path));
+				}
+            }
+			std::cout << utils::filesystem::get_filepath_without_extension(shader_path) << std::endl;
 //		}
-//		else if (filepath.extension().string() == ".frag")
-//		{
-//			fragment_filename = filepath.filename().string();
-//		}
-//
+	}
+
 //		file_counter++;
 //
 //		if (vertex_filename.empty() || fragment_filename.empty() || file_counter != 2) {}
@@ -134,11 +148,8 @@ Shader ResourceManager::GetShader(std::string name)
 	return Shaders[name];
 }
 
-Texture ResourceManager::LoadTexture(const char *file, bool alpha, const std::string &name)
+Texture ResourceManager::LoadTexture(const char *file, bool alpha, std::string name)
 {
-//	std::string current_path = utils::filesystem::get_current_path() + "\\";
-//	current_path += file;
-
 	Textures[name] = loadTextureFromFile(file, alpha);
 	return Textures[name];
 }
@@ -214,6 +225,12 @@ Texture ResourceManager::loadTextureFromFile(const char *file, bool alpha)
 	// Load image
 	int width, height, num_channels; // TODO: Include this in Texture structure
 	unsigned char* image = stbi_load(file, &width, &height, &num_channels, texture.Image_Format == GL_RGBA ? STBI_rgb_alpha : STBI_rgb);
+
+	if(image == nullptr)
+	{
+		std::cout << "[warning] Image " << std::string(file) << " cannot be loaded." << std::endl;
+	}
+
 	// Now generate texture
 	texture.Generate(width, height, image);
 	// And finally free image data

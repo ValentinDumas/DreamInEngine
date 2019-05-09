@@ -6,7 +6,7 @@
 class Texture
 {
 public:
-	unsigned int ID;
+	unsigned int ID = 0;
 
 	unsigned int Width, Height; // Width and height of loaded image in pixels
 

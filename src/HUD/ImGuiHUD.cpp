@@ -1,37 +1,46 @@
 //
-// Created by Spark on 07/05/2019.
+// Created by ValentinDU on 20/02/2018.
 //
 
-#include "ImGuiHUD.h"
-
-#include "GLFWEnvironment.h"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <HUD/ImGuiHUD.h>
+#include <GLFWEnvironment.h>
 
 #include <scenes/SceneManager.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
+#include <ImGui/imgui.h>
+#include <ImGui/imgui_impl_glfw.h>
+#include <ImGui/imgui_impl_opengl3.h>
 // TODO: Remove this include as well as the ToggleButton from this file
-#include <imgui/imgui_internal.h> // NOTE: Only for ToggleButton example..
+#include <ImGui/imgui_internal.h> // NOTE: Only for ToggleButton example..
 
-#include "utils/FileSystem.hpp"
+// NOTE: only for windows !
+#include <dirent.h>
 
-#include "popups.h"
-
+#ifdef WIN32
+#include <direct.h>
+#define GetCurrentDir _getcwd
+//#else
+//#include <unistd.h>
+//#define GetCurrentDir getcwd
+#endif
 #include<iostream>
 #include <fstream>
 #include <sstream>
-#include <cstring>
+#include <string>
+#include <GLFW/glfw3.h>
+
+#include <experimental/filesystem>
+#include "ImGui/imgui.h"
+#include "HUD/popups.h"
+namespace fs = std::experimental::filesystem;
 
 static bool query_save_as = false;
 
-//std::string GetCurrentWorkingDir(void) {
-//    char buff[FILENAME_MAX];
-//    GetCurrentDir(buff, FILENAME_MAX);
-//    std::string current_working_dir(buff);
-//    return current_working_dir;
-//}
+std::string GetCurrentWorkingDir(void) {
+    char buff[FILENAME_MAX];
+    GetCurrentDir(buff, FILENAME_MAX);
+    std::string current_working_dir(buff);
+    return current_working_dir;
+}
 
 bool begin_child_tab_content(unsigned int selected_tab, const char* str_id, const ImVec2& size_arg, bool border, ImGuiWindowFlags extra_flags)
 {
@@ -64,16 +73,16 @@ namespace ImGui {
     } Alignment;
 
     struct TabsDesc {
-        int	lableCount;
+        __int32	lableCount;
         float lableWidth;
-        int currentidx;
+        __int32 currentidx;
 
     };
 
     struct Tabs {
         TabsDesc* tbd;
         ImGuiID ID;
-        int selectedIdx;
+        __int32 selectedIdx;
     };
 
     static   ImVector<Tabs*> CacheTabs;
@@ -505,7 +514,7 @@ void ImGuiHUD::update() {
                 }
 
                 char entity_name[64];
-                std::strcpy(entity_name, m_scene_manager.active_scene()->getEntities().getVector()[j]->name.c_str()); // Convert std::string to char array. Purpose: we need to pass a char array pointer to ImGui::InputText.
+                strcpy_s(entity_name, m_scene_manager.active_scene()->getEntities().getVector()[j]->name.c_str()); // Convert std::string to char array. Purpose: we need to pass a char array pointer to ImGui::InputText.
                 // [IMPORTANT] : The Popup is referring to the last Imgui:: item !
                 if (ImGui::BeginPopupContextItem(entity_name)) // When used after an item that has an ID (here the Button), we can skip providing an ID to BeginPopupContextItem().
                 {
@@ -663,14 +672,14 @@ void ImGuiHUD::update() {
                     const unsigned int component_type = component_types_map[component_selected_name];
 
                     query_add_component = m_scene_manager.add_component(component_type, /*m_scene_manager.active_scene()->getEntities()[*/entitySelected/*].id*/);
-                    if (query_add_component.Message != "")
+                    if (!query_add_component.Message.empty())
                     {
                         queryComponentInfo = true;
                     }
                 }
             }
 
-            if (queryComponentInfo && (query_add_component.Message != ""))
+            if (queryComponentInfo && !query_add_component.Message.empty())
             {
                 ImGui::TextColored((query_add_component.Result ? ImVec4(0.0f, 0.5f, 0.0f, 1.0f) : ImVec4(0.7f, 0.0f, 0.0f, 1.0f)), query_add_component.Message.c_str()); // Color TEXT !!!
             }
@@ -927,8 +936,9 @@ void ImGuiHUD::update() {
             ImGui::BeginGroup();
             {
                 ImGui::Text("Project Explorer");
+                ImGui::Text("Allo:");
                 // Display project tree
-                // recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
+//                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
             }
             ImGui::EndGroup();
         }
@@ -1106,7 +1116,7 @@ void ImGuiHUD::UpdateCurrentWindowRectData(ImGuiWindowRect* window_rect)
 //ImGui::PopTextWrapPos();
 #pragma endregion
 
-#pragma region DragNDrop
+#pragma region Drag'N'Drop
 //if (ImGui::TreeNode("Drag and Drop"))
 //{
 //	{

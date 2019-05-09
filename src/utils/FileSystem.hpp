@@ -14,6 +14,18 @@ namespace utils {
     namespace filesystem {
         std::string get_filename(const std::string& path);
 
+        std::string get_file_extension(const std::string &filepath);
+
+        std::string get_filename_without_extension(const std::string& path);
+
+        std::string get_filepath_without_extension(const std::string& path);
+
+        bool exists(const std::string& path);
+
+        bool has_extension(const std::string& path);
+
+        bool has_children(const std::string& path);
+
         bool is_file(const std::string& path);
 
         bool is_directory(const std::string& path);
@@ -30,8 +42,6 @@ namespace utils {
         std::vector<std::string> get_directory_entries(const std::string & path);
 
         void print_directory_entries(const std::string &path);
-
-        cppfs::FileHandle get_entry(const std::string &path);
     }
 }
 

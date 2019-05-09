@@ -17,6 +17,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <SFML/Audio.hpp>
 #include "GLFWEnvironment.h"
 
 #include "components/Texture.h"
@@ -66,12 +67,10 @@ public:
         glEnable(GL_SMOOTH);
 
         // Load shaders & count
-        ResourceManager::LoadShader("assets\\shaders\\sprite2D.vert", "assets\\shaders\\sprite2D.frag", nullptr, "sprite2D");
-//        std::cout << "Shaders Loaded: " << shader_count << std::endl;
+        unsigned int shader_count = ResourceManager::LoadShaders("assets\\shaders");
+        std::cout << "Shaders Loaded: " << shader_count << std::endl;
 
         // Load textures & count
-//        ResourceManager::LoadTexture("C:\\Users\\Spark\\Desktop\\apps\\cppprojects\\DreamInEngine\\assets\\textures\\container.jpg", true, "container");
-        std::cout << "BANZAIIIIIIIIIII = " << utils::filesystem::get_current_path() << "\\assets\\textures" << std::endl;
         unsigned int texture_count = ResourceManager::LoadTextures("assets\\textures");
         std::cout << "Textures Loaded: " << texture_count << std::endl;
 
@@ -90,6 +89,17 @@ public:
 };
 
 int main(int argc, char** argv) {
+//    sf::Music Music1;       // By default, the internal buffer will hold 44100 samples
+//    //sf::Music Music2(96000); // The internal buffer will hold 96000 samples
+//
+//    if(!Music1.openFromFile("assets\\audio\\getout.ogg"))
+//    {
+//        // ...Error
+//    } else{
+//        std::cout << "V - " << Music1.getVolume() << std::endl;
+//        Music1.play();
+//    }
+
     Engine *DreamInEngine = new Engine();
     DreamInEngine->Start();
 
