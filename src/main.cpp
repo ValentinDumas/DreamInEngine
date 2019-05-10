@@ -89,16 +89,20 @@ public:
 };
 
 int main(int argc, char** argv) {
-//    sf::Music Music1;       // By default, the internal buffer will hold 44100 samples
-//    //sf::Music Music2(96000); // The internal buffer will hold 96000 samples
-//
-//    if(!Music1.openFromFile("assets\\audio\\getout.ogg"))
-//    {
-//        // ...Error
-//    } else{
-//        std::cout << "V - " << Music1.getVolume() << std::endl;
-//        Music1.play();
-//    }
+    sf::Sound sound;
+
+    sf::SoundBuffer soundBuffer;
+
+    if(!soundBuffer.loadFromFile("getout.ogg"))
+    {
+        return 3;
+    }
+    else
+    {
+        sound.setLoop(true);
+        sound.setBuffer(soundBuffer);
+        sound.play();
+    }
 
     Engine *DreamInEngine = new Engine();
     DreamInEngine->Start();
