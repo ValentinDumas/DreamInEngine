@@ -19,6 +19,11 @@ project(DreamInEngine C CXX)
 # set(CMAKE_BUILD_TYPE Debug)
 # message(CMAKE Build Type => ${CMAKE_BUILD_TYPE})
 
+if(APPLE)
+    include_directories(externals/sfml_2.5.1/include)
+    link_directories(externals/sfml_2.5.1/lib)
+endif()
+
 # ------------------------------------------------------------------------------
 # Other CMake options
 # ------------------------------------------------------------------------------
