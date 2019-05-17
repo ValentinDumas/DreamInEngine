@@ -140,10 +140,8 @@ target_include_directories(liblua PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/luajit_2.0.
 # SFML 2.5.1
 # ------------------------------------------------------------------------------
 # Note: With SMFL 2.5, there is no need to add the "SFML_STATIC" definition
-if(APPLE)
-    include_directories(sfml_2.5.1/include)
-    link_directories(sfml_2.5.1/lib)
-else()
+if(NOT APPLE)
+    message(SFML: building as "NOT APPLE")
     add_subdirectory(sfml_2.5.1)
     AddLibraryToProject(sfml-system)
     AddLibraryToProject(sfml-network)

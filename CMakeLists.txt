@@ -20,6 +20,7 @@ project(DreamInEngine C CXX)
 # message(CMAKE Build Type => ${CMAKE_BUILD_TYPE})
 
 if(APPLE)
+    message("SFML: Apple building !")
     include_directories(externals/sfml_2.5.1/include)
     link_directories(externals/sfml_2.5.1/lib)
 endif()
