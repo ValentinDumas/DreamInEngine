@@ -135,6 +135,23 @@ add_subdirectory(luajit_2.0.3)
 AddLibraryToProject(liblua)
 target_include_directories(liblua PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/luajit_2.0.3/src)
 
+#TODO: create a custom target for SFML with includes some modules of it and the "include" directory
+# ------------------------------------------------------------------------------
+# SFML 2.5.1
+# ------------------------------------------------------------------------------
+# Note: With SMFL 2.5, there is no need to add the "SFML_STATIC" definition
+if(APPLE)
+    include_directories(sfml_2.5.1/include)
+    link_directories(sfml_2.5.1/lib)
+else()
+    add_subdirectory(sfml_2.5.1)
+endif()
+AddLibraryToProject(sfml-system)
+AddLibraryToProject(sfml-network)
+AddLibraryToProject(sfml-graphics)
+AddLibraryToProject(sfml-audio)
+AddLibraryToProject(sfml-window)
+
 # ------------------------------------------------------------------------------
 #
 # PUT STATIC LIBRARIES HERE
@@ -198,18 +215,6 @@ AddLibraryToProject(Box2D)
 # ------------------------------------------------------------------------------
 add_subdirectory(imgui_1.68)
 AddLibraryToProject(imgui)
-
-#TODO: create a custom target for SFML with includes some modules of it and the "include" directory
-# ------------------------------------------------------------------------------
-# SFML 2.5.1
-# ------------------------------------------------------------------------------
-# Note: With SMFL 2.5, there is no need to add the "SFML_STATIC" definition
-add_subdirectory(sfml_2.5.1)
-AddLibraryToProject(sfml-system)
-AddLibraryToProject(sfml-window)
-AddLibraryToProject(sfml-network)
-AddLibraryToProject(sfml-graphics)
-AddLibraryToProject(sfml-audio)
 
 # ------------------------------------------------------------------------------
 # STB library

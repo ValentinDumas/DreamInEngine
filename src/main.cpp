@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
 
     sf::SoundBuffer soundBuffer;
 
-    if(!soundBuffer.loadFromFile("getout.ogg"))
+    if(!soundBuffer.loadFromFile("assets\\audio\\getout.ogg"))
     {
         return 3;
     }
