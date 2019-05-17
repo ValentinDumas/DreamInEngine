@@ -145,12 +145,12 @@ if(APPLE)
     link_directories(sfml_2.5.1/lib)
 else()
     add_subdirectory(sfml_2.5.1)
+    AddLibraryToProject(sfml-system)
+    AddLibraryToProject(sfml-network)
+    AddLibraryToProject(sfml-graphics)
+    AddLibraryToProject(sfml-audio)
+    AddLibraryToProject(sfml-window)
 endif()
-AddLibraryToProject(sfml-system)
-AddLibraryToProject(sfml-network)
-AddLibraryToProject(sfml-graphics)
-AddLibraryToProject(sfml-audio)
-AddLibraryToProject(sfml-window)
 
 # ------------------------------------------------------------------------------
 #
