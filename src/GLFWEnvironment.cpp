@@ -2,6 +2,7 @@
 // Created by ValentinDU on 20/02/2018.
 //
 
+#include <SFML/OpenGL.hpp>
 #include <GLFW/glfw3.h>
 #include "GLFWEnvironment.h"
 
@@ -174,7 +175,7 @@ void GLFWEnvironment::update_viewport(int x, int y, int width, int height) {
 	m_viewport_rect.y = y;
 	m_viewport_rect.w = width;
 	m_viewport_rect.h = height;
-	glViewport(m_viewport_rect.x, m_viewport_rect.y, m_viewport_rect.w, m_viewport_rect.h);
+	//glViewport(m_viewport_rect.x, m_viewport_rect.y, m_viewport_rect.w, m_viewport_rect.h);
 }
 
 int GLFWEnvironment::quit() {
@@ -204,8 +205,8 @@ void GLFWEnvironment::close() {
 }
 
 void GLFWEnvironment::clear_screen(float r, float g, float b, float a) {
-	glClearColor(r, g, b, a);
-	glClear(GL_COLOR_BUFFER_BIT);
+//	glClearColor(r, g, b, a);
+//	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 bool GLFWEnvironment::is_fullscreen() {
