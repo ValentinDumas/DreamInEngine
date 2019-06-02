@@ -67,11 +67,11 @@ public:
         glEnable(GL_SMOOTH);
 
         // Load shaders & count
-        unsigned int shader_count = ResourceManager::LoadShaders("assets\\shaders");
+        unsigned int shader_count = ResourceManager::LoadShaders("assets/shaders");
         std::cout << "Shaders Loaded: " << shader_count << std::endl;
 
         // Load textures & count
-        unsigned int texture_count = ResourceManager::LoadTextures("assets\\textures");
+        unsigned int texture_count = ResourceManager::LoadTextures("assets/textures");
         std::cout << "Textures Loaded: " << texture_count << std::endl;
 
         SceneManager* sm = new SceneManager(m_glfw_environment);
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
 
     sf::SoundBuffer soundBuffer;
 
-    if(!soundBuffer.loadFromFile("assets\\audio\\getout.ogg"))
+    if(!soundBuffer.loadFromFile("assets/audio/getout.ogg"))
     {
         return 3;
     }
