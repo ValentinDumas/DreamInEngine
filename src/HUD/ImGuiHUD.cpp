@@ -368,7 +368,7 @@ int ImGuiHUD::init() {
     m_show_window_fileviewer = true;
     // Debug frames
     m_show_another_window = true;
-    m_show_demo_window = true;
+    m_show_demo_window = false;
 
     //TODO: never forget to update this map when adding a new type
     component_names_map[COMPONENT_SPRITE] = "Sprite Component";
@@ -430,6 +430,7 @@ void ImGuiHUD::update() {
             if (status == PopupStatus::CANCEL) { query_save_as = false; }
             if (status == PopupStatus::SAVE_AS)
             {
+
                 // TODO: Thomas save all data in documents on filesystem (nosql documents) here !
                 ////	if (SaveAs()) // Success
                 ////	{
@@ -787,7 +788,7 @@ void ImGuiHUD::update() {
                             {
                                 IM_ASSERT(payload->DataSize == sizeof(std::string)); // Proves this is a "char" array;
 
-                                payload_n = *(std::string*)payload->Data;
+                                payload_n = ((const char*)payload->Data);
                                 drag_texture = true;
                             }
                             ImGui::EndDragDropTarget();
@@ -964,7 +965,7 @@ void ImGuiHUD::update() {
                     // #DRAG
                     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
                     {
-                        ImGui::SetDragDropPayload("DRAG_N_DROP_TEXTURES", &texture_name, sizeof(texture_name));        // Set payload to carry the index of our item (could be anything)
+                        ImGui::SetDragDropPayload("DRAG_N_DROP_TEXTURES", texture_name.c_str(), sizeof(texture_name));        // Set payload to carry the index of our item (could be anything)
 
                         ImGui::EndDragDropSource();
                     }
