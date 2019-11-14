@@ -197,6 +197,8 @@ std::unordered_map<std::string, unsigned int> component_types_map;
 static std::string fileCode = "", fileName = "";
 bool query_display_file_code = false;
 
+
+
 //void recursive_dir(std::string path, std::string actual_folder_name, bool root)
 //{
 //    DIR *dir;
@@ -447,7 +449,7 @@ void ImGuiHUD::update() {
             ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.0f, 0.0f, 0.2f));
             ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 
-            const Texture texture_button_play = ResourceManager::GetTexture("button_play");
+            const Texture texture_button_play = ResourceManager::GetTexture("play");
             if (ImGui::ImageButton((void*)(intptr_t)texture_button_play.ID, ImVec2(32.0f, 32.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f), 0, ImVec4())) {
                 if (m_scene_manager.getRunningConfigEnum() == CONFIG && m_scene_manager.getRunningConfigEnum() != RUNNING)
                 {
@@ -457,7 +459,7 @@ void ImGuiHUD::update() {
 
             ImGui::SameLine();
 
-            const Texture texture_button_stop = ResourceManager::GetTexture("button_stop");
+            const Texture texture_button_stop = ResourceManager::GetTexture("stop");
             if (ImGui::ImageButton((void*)(intptr_t)texture_button_stop.ID, ImVec2(32.0f, 32.0f), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f), 0)) {
                 if (m_scene_manager.getRunningConfigEnum() == RUNNING && m_scene_manager.getRunningConfigEnum() != CONFIG)
                 {
@@ -923,14 +925,29 @@ void ImGuiHUD::update() {
 
         ImGui::BeginChildFrame(ImGui::GetID("Project Explorer"), ImVec2(ImGui::GetWindowWidth() / 2 - (ImGui::GetStyle().WindowPadding.x), ImGui::GetWindowHeight() - (ImGui::GetStyle().WindowPadding.x * 4) - 5), ImGuiWindowFlags_AlwaysVerticalScrollbar);
         {
-            ImGui::BeginGroup();
-            {
-                ImGui::Text("Project Explorer");
-                ImGui::Text("Displaying project tree...");
-                // Display project tree
-//                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
+//            ImGui::BeginGroup();
+//            {
+//                ImGui::Text("Project Explorer");
+//                ImGui::Text("Displaying project tree...");
+//                // Display project tree
+////                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
+//            }
+//            ImGui::EndGroup();
+
+            bool tree_node_opened = ImGui::TreeNodeEx("W:\\apps\\cppprojects", ImGuiTreeNodeFlags_DefaultOpen);
+//              bool tree_node_opened = ImGui::TreeNode("project");
+            if(tree_node_opened) {
+                ImGui::BeginGroup();
+                {
+                    if(ImGui::Selectable("file1")) {}
+                    if(ImGui::Selectable("file2")){}
+                    if(ImGui::Selectable("file.txt")){}
+                }
+                ImGui::EndGroup();
+
+                ImGui::TreePop();
             }
-            ImGui::EndGroup();
+
         }
         ImGui::EndChild();
         ImGui::SameLine();
