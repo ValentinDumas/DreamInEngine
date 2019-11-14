@@ -89,20 +89,20 @@ public:
 };
 
 int main(int argc, char** argv) {
-    sf::Sound sound;
-
-    sf::SoundBuffer soundBuffer;
-
-    if(!soundBuffer.loadFromFile("assets/audio/getout.ogg"))
-    {
-        return 3;
-    }
-    else
-    {
-        sound.setLoop(true);
-        sound.setBuffer(soundBuffer);
-        sound.play();
-    }
+//    sf::Sound sound;
+//
+//    sf::SoundBuffer soundBuffer;
+//
+//    if(!soundBuffer.loadFromFile("assets/audio/getout.ogg"))
+//    {
+//        return 3;
+//    }
+//    else
+//    {
+//        sound.setLoop(true);
+//        sound.setBuffer(soundBuffer);
+//        sound.play();
+//    }
 
     Engine *DreamInEngine = new Engine();
     DreamInEngine->Start();
