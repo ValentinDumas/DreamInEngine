@@ -49,9 +49,6 @@ set(BUILD_EXECUTABLE_IN_PROJECT_TREE OFF)
 # Testing options
 # ------------------------------------------------------------------------------
 message("Tests are configured in STANDALONE mode")
-if(NOT APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static") # include gcc libs
-endif()
 
 # TODO: this code should be added to a specific target (function)
 if(MINGW)

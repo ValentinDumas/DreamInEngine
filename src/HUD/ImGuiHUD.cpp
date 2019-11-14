@@ -925,14 +925,14 @@ void ImGuiHUD::update() {
 
         ImGui::BeginChildFrame(ImGui::GetID("Project Explorer"), ImVec2(ImGui::GetWindowWidth() / 2 - (ImGui::GetStyle().WindowPadding.x), ImGui::GetWindowHeight() - (ImGui::GetStyle().WindowPadding.x * 4) - 5), ImGuiWindowFlags_AlwaysVerticalScrollbar);
         {
-//            ImGui::BeginGroup();
-//            {
-//                ImGui::Text("Project Explorer");
+            ImGui::BeginGroup();
+            {
+                ImGui::Text("Project Explorer");
 //                ImGui::Text("Displaying project tree...");
-//                // Display project tree
-////                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
-//            }
-//            ImGui::EndGroup();
+                // Display project tree
+//                recursive_dir(GetCurrentWorkingDir(), "DreamInEngine_2.0", true);
+            }
+            ImGui::EndGroup();
 
             bool tree_node_opened = ImGui::TreeNodeEx("W:\\apps\\cppprojects", ImGuiTreeNodeFlags_DefaultOpen);
 //              bool tree_node_opened = ImGui::TreeNode("project");
