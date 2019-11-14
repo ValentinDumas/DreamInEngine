@@ -22,10 +22,6 @@
 #include "imgui/imgui.h"
 #include "HUD/popups.h"
 
-#include <experimental/filesystem>
-
-namespace fs = std::experimental::filesystem;
-
 static bool query_save_as = false;
 
 //std::string GetCurrentWorkingDir(void) {
