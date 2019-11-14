@@ -104,7 +104,7 @@ matrix:
           - libc6-dev         # "pthread" library
 
     script:
-      - cmake -DENABLE_COVERAGE=ON -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4 # run project build
       - make test # run all tests
       - cd ..
@@ -137,7 +137,7 @@ matrix:
       - TEST="Google Address Sanitizer"
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DENABLE_ASAN=ON -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DENABLE_ASAN=ON -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4
       - make test
 
@@ -168,7 +168,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DENABLE_USAN=ON -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DENABLE_USAN=ON -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4
       - make test
 
@@ -199,7 +199,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DENABLE_TSAN=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DENABLE_TSAN=ON -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4
       - make test
 
@@ -231,7 +231,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4
       - ctest -T memcheck
 
@@ -262,7 +262,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-5" ..
+      - cmake -DCMAKE_CXX_COMPILER="g++-5" ..
       - make -j4
       - make test
 
@@ -293,7 +293,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_CXX_COMPILER="g++-6" ..
+      - cmake -DCMAKE_CXX_COMPILER="g++-6" ..
       - make -j4
       - make test
 
@@ -326,7 +326,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_C_COMPILER=clang-3.8 -DCMAKE_CXX_COMPILER=clang++-3.8 ..
+      - cmake -DCMAKE_C_COMPILER=clang-3.8 -DCMAKE_CXX_COMPILER=clang++-3.8 ..
       - make -j4
       - make test
 
@@ -359,7 +359,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_C_COMPILER=clang-3.9 -DCMAKE_CXX_COMPILER=clang++-3.9 ..
+      - cmake -DCMAKE_C_COMPILER=clang-3.9 -DCMAKE_CXX_COMPILER=clang++-3.9 ..
       - make -j4
       - make test
 
@@ -392,7 +392,7 @@ matrix:
           - libc6-dev         # "pthread" library
     script:
       - sudo apt-get install xorg-dev libglu1-mesa-dev libbsd-dev libzzip-dev
-      - cmake -DONLINE_TESTING=ON -DCMAKE_C_COMPILER=clang-4.0 -DCMAKE_CXX_COMPILER=clang++-4.0 ..
+      - cmake -DCMAKE_C_COMPILER=clang-4.0 -DCMAKE_CXX_COMPILER=clang++-4.0 ..
       - make -j4
       - make test
 
@@ -404,7 +404,7 @@ matrix:
       - TEST="XCode 7.3"
     osx_image: xcode7.3
     script:
-      - cmake -DONLINE_TESTING=ON ..
+      - cmake ..
       - make -j4 # --debug
       - make test
 
@@ -416,7 +416,7 @@ matrix:
       - TEST="XCode 8"
     osx_image: xcode8
     script:
-      - cmake -DONLINE_TESTING=ON ..
+      - cmake ..
       - make -j4 # --debug
       - make test
 
@@ -428,7 +428,7 @@ matrix:
       - TEST="XCode 8.1"
     osx_image: xcode8.1
     script:
-      - cmake -DONLINE_TESTING=ON ..
+      - cmake ..
       - make -j4 # --debug
       - make test
 
@@ -440,7 +440,7 @@ matrix:
       - TEST="XCode 8.2"
     osx_image: xcode8.2
     script:
-      - cmake -DONLINE_TESTING=ON ..
+      - cmake ..
       - make -j4 # --debug
       - make test
 
@@ -452,6 +452,6 @@ matrix:
       - TEST="XCode 8.3"
     osx_image: xcode8.3
     script:
-      - cmake -DONLINE_TESTING=ON ..
+      - cmake ..
       - make -j4 # --debug
       - make test
