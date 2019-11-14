@@ -27,23 +27,21 @@ endfunction()
 function(MoveNeededResourcesToTarget target_name) # TODO: add "required_libraries" parameter to avoid copying all dlls for each target even when they don't need it.
     get_property_by_name(SHARED_LIBRARIES P_SHARED_LIBRARIES)
 
-    MoveAssetsToTarget(${CMAKE_SOURCE_DIR}/assets ${target_name})
-
-    if(ONLINE_MODE) # online --> move assets to CMake's default binary folder
-        if(MSVC)
-            message("MSVC building...")
-            MoveAssetsToTarget(${CMAKE_SOURCE_DIR}/assets ${target_name})
-        else()
-            MoveAssetsToTarget(${CMAKE_SOURCE_DIR}/assets ${target_name})
-        endif()
-        MoveMultipleLibsForTarget("${SHARED_LIBRARIES}" ${target_name})
-    elseif(BUILD_EXECUTABLE_IN_PROJECT_TREE AND (target_name MATCHES "test")) # STANDALONE && EXE BUILDING in project tree
-        message("Manually copy GOOGLE TEST/MOCK shared libraries (.dll) to project binary directory to build executable directly into the project folder instead of Cmake default binary folder")
-        MoveLibToTarget(gtest ${target_name})
-        MoveLibToTarget(gmock ${target_name})
-        MoveLibToTarget(gtest_main ${target_name})
-        MoveLibToTarget(gmock_main ${target_name})
+    if(MSVC)
+        message("MSVC building...")
+    else()
+        message("Other platform: linux or macos building...")
     endif()
+
+    MoveAssetsToTarget(${CMAKE_SOURCE_DIR}/assets ${target_name})
+    MoveMultipleLibsForTarget("${SHARED_LIBRARIES}" ${target_name})
+
+    # TODO: check/measure the real need to manually integrate GTest/GMock libraries to target
+    message("Manually copy GOOGLE TEST/MOCK shared libraries (.dll) to project binary directory to build executable directly into the project folder instead of Cmake default binary folder")
+    MoveLibToTarget(gtest ${target_name})
+    MoveLibToTarget(gmock ${target_name})
+    MoveLibToTarget(gtest_main ${target_name})
+    MoveLibToTarget(gmock_main ${target_name})
 endfunction()
 
 # ------------------------------------------------------------------------------

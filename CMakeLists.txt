@@ -48,28 +48,9 @@ set(BUILD_EXECUTABLE_IN_PROJECT_TREE OFF)
 # ------------------------------------------------------------------------------
 # Testing options
 # ------------------------------------------------------------------------------
-#Note: If ONLINE OR STANDALONE_WITH_NOEXECUTABLE Then
-#set(ONLINE_TESTING ON)
-set(ONLINE_MODE ${ONLINE_TESTING})
-if(ONLINE_MODE)
-    message("Tests are configured in ONLINE mode")
-else()
-    message("Tests are configured in STANDALONE mode")
-    if(NOT APPLE)
-        set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static") # include gcc libs
-    endif()
-    if(BUILD_EXECUTABLE_IN_PROJECT_TREE)
-        file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-        # TODO: only apply to concerned target, as main target (ci_opengl_template) for instance
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # sure ?
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # TODO: change to lib
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin) # TODO: change to lib/static
-    else()
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # sure ?
-        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # TODO: change to lib
-        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin) # TODO: change to lib/static
-    endif()
+message("Tests are configured in STANDALONE mode")
+if(NOT APPLE)
+    set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static") # include gcc libs
 endif()
 
 # TODO: this code should be added to a specific target (function)
