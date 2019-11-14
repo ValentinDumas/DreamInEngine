@@ -1,4 +1,4 @@
-# CI C++ Template
+# DreamIn Engine
 
 Continuous Integration template project in C++ with CMake.
 This project includes basic setup to start a c++ project, supporting continuous integration.
