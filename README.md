@@ -9,6 +9,8 @@ This project includes basic setup to start a c++ project, supporting continuous 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/58b2af4d5b284ae2bd2f8c8c1ad71d70)](https://www.codacy.com/app/ValentinDumas/DreamInEngine?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ValentinDumas/DreamInEngine&amp;utm_campaign=Badge_Grade)
 [![Documentation](https://codedocs.xyz/ValentinDumas/DreamInEngine.svg)](https://codedocs.xyz/ValentinDumas/DreamInEngine/)
 
+![engine_overview](https://user-images.githubusercontent.com/16557151/124160677-cc2a2700-da9c-11eb-87f0-b239a7dca2a4.jpg)
+
 ## 1. Description
 
 This repository provides a continuous integration sample project.
